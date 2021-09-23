@@ -4,17 +4,16 @@ using UnityEngine;
 
 public class PC_Script : MonoBehaviour
 {
-
     private PlayerInputActions playerInput;
 
     private Rigidbody2D rb;
 
-    [SerializedField] private float speed = 10f;
+    [SerializeField] private float speed = 10f;
 
     void Awake()
     {
         playerInput = new PlayerInputActions();
-        ReadOnlyCollectionBase = GetComponent<Rigidbody2D>();
+        rb = GetComponent<Rigidbody2D>();
     }
 
     private void OnEnable()
