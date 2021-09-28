@@ -12,6 +12,22 @@
                     "expectedControlType": "Vector2",
                     "processors": "",
                     "interactions": ""
+                },
+                {
+                    "name": "Pull",
+                    "type": "Button",
+                    "id": "9e52f995-caa9-491a-ad4c-bc8548ee4d08",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "Stop",
+                    "type": "Button",
+                    "id": "cee41146-958d-492a-9dc0-68d3dbfc14ee",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
                 }
             ],
             "bindings": [
@@ -69,6 +85,28 @@
                     "action": "Move",
                     "isComposite": false,
                     "isPartOfComposite": true
+                },
+                {
+                    "name": "",
+                    "id": "78257716-31c3-47ea-b83f-470e202e9724",
+                    "path": "<Keyboard>/e",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Pull",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "46fb75c4-6235-4e0d-a99e-b025ec236d38",
+                    "path": "<Keyboard>/q",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Stop",
+                    "isComposite": false,
+                    "isPartOfComposite": false
                 }
             ]
         },
@@ -104,7 +142,7 @@
             "id": "00f66c0b-2e55-44e3-80da-339f937a2738",
             "actions": [
                 {
-                    "name": "New action",
+                    "name": "Fire",
                     "type": "Button",
                     "id": "01b9b678-5217-4a75-a7b3-582e39cd0835",
                     "expectedControlType": "Button",
@@ -116,11 +154,38 @@
                 {
                     "name": "",
                     "id": "06ba7bea-5165-45dc-a884-271be177e377",
-                    "path": "",
+                    "path": "<Keyboard>/f",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "New action",
+                    "action": "Fire",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        },
+        {
+            "name": "Push",
+            "id": "68e08875-df00-404a-935f-60a9b46b787b",
+            "actions": [
+                {
+                    "name": "Push",
+                    "type": "Button",
+                    "id": "eae088ca-4a07-4824-8691-e6965d516f0a",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "d11df718-7f45-4526-b586-9bd9e87f8919",
+                    "path": "<Keyboard>/r",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Push",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
