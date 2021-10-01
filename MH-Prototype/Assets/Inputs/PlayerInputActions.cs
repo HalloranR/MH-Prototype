@@ -160,7 +160,7 @@ public class @PlayerInputActions : IInputActionCollection, IDisposable
                     ""id"": ""01b9b678-5217-4a75-a7b3-582e39cd0835"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
-                    ""interactions"": """"
+                    ""interactions"": ""Press(behavior=2)""
                 }
             ],
             ""bindings"": [
@@ -187,7 +187,7 @@ public class @PlayerInputActions : IInputActionCollection, IDisposable
                     ""id"": ""eae088ca-4a07-4824-8691-e6965d516f0a"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
-                    ""interactions"": """"
+                    ""interactions"": ""Press(behavior=2)""
                 }
             ],
             ""bindings"": [

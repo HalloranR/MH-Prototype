@@ -8,14 +8,22 @@ public class PC_Script : MonoBehaviour
     private PlayerInputActions playerInput;
     private Rigidbody2D rb;
     public LineRenderer line;
+
+    //Set up ally
     public GameObject ally;
+    public Rigidbody allyRB;
+
+    //bools for help
     public bool bound = false;
     public bool push = false;
+    public bool bust = false;
+
+    //movement speed and hook speed
     [SerializeField] private float speed = 10f;
+    [SerializeField] float pullSpeed = 7f;
 
     void Awake()
     {
-        print("first");
         playerInput = new PlayerInputActions();
         rb = GetComponent<Rigidbody2D>();
     }
@@ -24,10 +32,12 @@ public class PC_Script : MonoBehaviour
     {
         line.SetWidth(0.05F, 0.05F);
         line.SetVertexCount(2);
+        allyRB = ally.GetComponent<RigidBody>();
     }
 
     private void OnEnable()
     {
+        //do enables
         playerInput.Enable();
         playerInput.Fire.Fire.performed += DoFire;
         playerInput.Fire.Fire.Enable();
@@ -47,47 +57,54 @@ public class PC_Script : MonoBehaviour
         Vector2 moveInput = playerInput.Movement.Move.ReadValue<Vector2>();
         rb.velocity = moveInput * speed;
 
-        if (bound == true && push == false)
+        if (bound == true && bust == false)
         {
             line.SetPosition(0, transform.position);
             line.SetPosition(1, ally.transform.position);
-            print("here");
-            float step = 5f * Time.deltaTime;
-            ally.transform.position = Vector3.MoveTowards(ally.transform.position, transform.position, step);
+
+            float step = pullSpeed * Time.deltaTime;
+            //ally.transform.translate(Vector3.MoveTowards(ally.transform.position, transform.position, step);
+
+            allyRB.velocity = new Vector3(0, 10, 0);
+
+            if((Mathf.Abs(ally.transform.position.x - transform.position.x) < 1) &&
+                (Mathf.Abs(ally.transform.position.y - transform.position.y) < 1))
+            { 
+                bust = true;
+
+                line.SetPosition(0, new Vector2(0, 0));
+                line.SetPosition(1, new Vector2(0, 0));
+            }
         }
-        if (bound == false && push == true)
+
+        if (push == true)
         {
             line.SetPosition(0, transform.position);
             line.SetPosition(1, ally.transform.position);
-            print("here");
-            float step = 5f * Time.deltaTime;
+
+            float step = pullSpeed * Time.deltaTime;
             ally.transform.position = Vector3.MoveTowards(ally.transform.position, 
                 new Vector3(-100 * transform.position.x, -100 * transform.position.y, transform.position.z), step);
+            
+            
         }
     }
 
     private void DoFire(InputAction.CallbackContext obj)
     {
-        if (bound == false)
-        {
-            bound = true;
-            print("dome");
-        }
+        if (bound == false) { bound = true; }
         else if (bound == true)
         {
-            print("Happened?");
             line.SetPosition(0, new Vector2(0,0));
             line.SetPosition(1, new Vector2(0, 0));
             bound = false;
+            bust = false;
         }
     }
 
     private void DoPush(InputAction.CallbackContext obj)
     {
-        if (push == false)
-        {
-            push = true;
-        }
+        if (push == false) { push = true; }
         else if (push == true)
         {
             push = false;
