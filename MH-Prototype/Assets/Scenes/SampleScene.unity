@@ -128,8 +128,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 5627302209774827889, guid: a60e7fd9e454909438914241f0d14041, type: 3}
   m_PrefabInstance: {fileID: 5627302210018053846}
   m_PrefabAsset: {fileID: 0}
-<<<<<<< Updated upstream
-=======
 --- !u!50 &16884834
 Rigidbody2D:
   serializedVersion: 4
@@ -151,7 +149,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
->>>>>>> Stashed changes
 --- !u!1 &155531365
 GameObject:
   m_ObjectHideFlags: 0
@@ -1163,8 +1160,6 @@ PrefabInstance:
       propertyPath: line
       value: 
       objectReference: {fileID: 155531366}
-<<<<<<< Updated upstream
-=======
     - target: {fileID: -6351942866109318009, guid: 56a61d3764fe90d4c80402dfcf568ae5, type: 3}
       propertyPath: pullSpeed
       value: 7
@@ -1177,7 +1172,6 @@ PrefabInstance:
       propertyPath: pullVelocity.y
       value: 4
       objectReference: {fileID: 0}
->>>>>>> Stashed changes
     - target: {fileID: 1170838201921333370, guid: 56a61d3764fe90d4c80402dfcf568ae5, type: 3}
       propertyPath: m_RootOrder
       value: 6

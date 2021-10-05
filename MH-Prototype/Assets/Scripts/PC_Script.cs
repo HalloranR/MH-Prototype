@@ -9,20 +9,15 @@ public class PC_Script : MonoBehaviour
     private Rigidbody2D rb;
     public LineRenderer line;
     public GameObject ally;
-<<<<<<< Updated upstream
-=======
     public Rigidbody2D allyRB;
 
     //bools for help
->>>>>>> Stashed changes
     public bool bound = false;
     public bool push = false;
+    public bool bust = false;
     [SerializeField] private float speed = 10f;
-<<<<<<< Updated upstream
-=======
     [SerializeField] float pullSpeed = 7f;
     [SerializeField] Vector2 pullVelocity = new Vector2(7f, 7f);
->>>>>>> Stashed changes
 
     void Awake()
     {
@@ -61,13 +56,11 @@ public class PC_Script : MonoBehaviour
         {
             line.SetPosition(0, transform.position);
             line.SetPosition(1, ally.transform.position);
-<<<<<<< Updated upstream
             print("here");
-            float step = 5f * Time.deltaTime;
-            ally.transform.position = Vector3.MoveTowards(ally.transform.position, transform.position, step);
-=======
-
             float step = pullSpeed * Time.deltaTime;
+            ally.transform.position = Vector3.MoveTowards(ally.transform.position, transform.position, step);
+
+   
             
             //Get the difference then move it
             Vector2 difference = (Vector2)transform.position - (Vector2)ally.transform.position;
@@ -83,24 +76,20 @@ public class PC_Script : MonoBehaviour
                 line.SetPosition(0, new Vector2(0, 0));
                 line.SetPosition(1, new Vector2(0, 0));
             }
->>>>>>> Stashed changes
         }
         if (bound == false && push == true)
         {
             line.SetPosition(0, transform.position);
             line.SetPosition(1, ally.transform.position);
-<<<<<<< Updated upstream
             print("here");
-            float step = 5f * Time.deltaTime;
+            float step = pullSpeed * Time.deltaTime;
             ally.transform.position = Vector3.MoveTowards(ally.transform.position, 
                 new Vector3(-100 * transform.position.x, -100 * transform.position.y, transform.position.z), step);
-=======
 
-            float step = pullSpeed * Time.deltaTime;
+
 
             Vector2 difference = (Vector2)ally.transform.position - (Vector2)transform.position;
             allyRB.MovePosition((Vector2)ally.transform.position + difference * step);
->>>>>>> Stashed changes
         }
     }
 
@@ -117,11 +106,8 @@ public class PC_Script : MonoBehaviour
             line.SetPosition(0, new Vector2(0,0));
             line.SetPosition(1, new Vector2(0, 0));
             bound = false;
-<<<<<<< Updated upstream
-=======
             bust = false;
             allyRB.velocity = new Vector2(0f, 0f);
->>>>>>> Stashed changes
         }
     }
 

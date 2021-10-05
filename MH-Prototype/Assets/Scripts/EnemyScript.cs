@@ -28,7 +28,7 @@ public class EnemyScript : MonoBehaviour
     {
         if(col.gameObject.tag == "Ally")
         {
-            health -= 4;
+            health -= lifeLoss;
         }
     }
 }
