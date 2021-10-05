@@ -15,9 +15,8 @@ public class PC_Script : MonoBehaviour
     public bool bound = false;
     public bool push = false;
     public bool bust = false;
-    [SerializeField] private float speed = 10f;
+    [SerializeField] private float walkSpeed = 10f;
     [SerializeField] float pullSpeed = 7f;
-    [SerializeField] Vector2 pullVelocity = new Vector2(7f, 7f);
 
     void Awake()
     {
@@ -25,12 +24,6 @@ public class PC_Script : MonoBehaviour
         playerInput = new PlayerInputActions();
         rb = GetComponent<Rigidbody2D>();
         allyRB = ally.GetComponent<Rigidbody2D>();
-    }
-
-    void start()
-    {
-        line.SetWidth(0.05F, 0.05F);
-        line.SetVertexCount(2);
     }
 
     private void OnEnable()
@@ -50,19 +43,14 @@ public class PC_Script : MonoBehaviour
     void FixedUpdate()
     {
         Vector2 moveInput = playerInput.Movement.Move.ReadValue<Vector2>();
-        rb.velocity = moveInput * speed;
+        rb.velocity = moveInput * walkSpeed;
 
-        if (bound == true && push == false)
+        if (bound == true && bust == false)
         {
             line.SetPosition(0, transform.position);
             line.SetPosition(1, ally.transform.position);
-            print("here");
-            float step = pullSpeed * Time.deltaTime;
-            ally.transform.position = Vector3.MoveTowards(ally.transform.position, transform.position, step);
 
-   
-            
-            //Get the difference then move it
+            float step = pullSpeed * Time.deltaTime;
             Vector2 difference = (Vector2)transform.position - (Vector2)ally.transform.position;
 
             allyRB.MovePosition((Vector2)ally.transform.position + difference * step);
@@ -77,18 +65,14 @@ public class PC_Script : MonoBehaviour
                 line.SetPosition(1, new Vector2(0, 0));
             }
         }
-        if (bound == false && push == true)
+        if (push == true)
         {
             line.SetPosition(0, transform.position);
             line.SetPosition(1, ally.transform.position);
-            print("here");
+
             float step = pullSpeed * Time.deltaTime;
-            ally.transform.position = Vector3.MoveTowards(ally.transform.position, 
-                new Vector3(-100 * transform.position.x, -100 * transform.position.y, transform.position.z), step);
-
-
-
             Vector2 difference = (Vector2)ally.transform.position - (Vector2)transform.position;
+
             allyRB.MovePosition((Vector2)ally.transform.position + difference * step);
         }
     }
@@ -98,11 +82,9 @@ public class PC_Script : MonoBehaviour
         if (bound == false)
         {
             bound = true;
-            print("dome");
         }
         else if (bound == true)
         {
-            print("Happened?");
             line.SetPosition(0, new Vector2(0,0));
             line.SetPosition(1, new Vector2(0, 0));
             bound = false;

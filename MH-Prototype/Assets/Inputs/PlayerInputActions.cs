@@ -25,22 +25,6 @@ public class @PlayerInputActions : IInputActionCollection, IDisposable
                     ""expectedControlType"": ""Vector2"",
                     ""processors"": """",
                     ""interactions"": """"
-                },
-                {
-                    ""name"": ""Pull"",
-                    ""type"": ""Button"",
-                    ""id"": ""9e52f995-caa9-491a-ad4c-bc8548ee4d08"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """"
-                },
-                {
-                    ""name"": ""Stop"",
-                    ""type"": ""Button"",
-                    ""id"": ""cee41146-958d-492a-9dc0-68d3dbfc14ee"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -98,55 +82,6 @@ public class @PlayerInputActions : IInputActionCollection, IDisposable
                     ""action"": ""Move"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""78257716-31c3-47ea-b83f-470e202e9724"",
-                    ""path"": ""<Keyboard>/e"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Pull"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""46fb75c4-6235-4e0d-a99e-b025ec236d38"",
-                    ""path"": ""<Keyboard>/q"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Stop"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                }
-            ]
-        },
-        {
-            ""name"": ""Selection"",
-            ""id"": ""dba3acd6-fe09-4385-854b-136c533a3bd1"",
-            ""actions"": [
-                {
-                    ""name"": ""New action"",
-                    ""type"": ""Button"",
-                    ""id"": ""887d2f3a-a5c5-448f-9469-e5fbb4046849"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """"
-                }
-            ],
-            ""bindings"": [
-                {
-                    ""name"": """",
-                    ""id"": ""307b8cd1-9890-4aa6-abe3-b959122dcc0d"",
-                    ""path"": """",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""New action"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
                 }
             ]
         },
@@ -160,7 +95,7 @@ public class @PlayerInputActions : IInputActionCollection, IDisposable
                     ""id"": ""01b9b678-5217-4a75-a7b3-582e39cd0835"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
-                    ""interactions"": """"
+                    ""interactions"": ""Press(behavior=2)""
                 }
             ],
             ""bindings"": [
@@ -187,7 +122,7 @@ public class @PlayerInputActions : IInputActionCollection, IDisposable
                     ""id"": ""eae088ca-4a07-4824-8691-e6965d516f0a"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
-                    ""interactions"": """"
+                    ""interactions"": ""Press(behavior=2)""
                 }
             ],
             ""bindings"": [
@@ -210,11 +145,6 @@ public class @PlayerInputActions : IInputActionCollection, IDisposable
         // Movement
         m_Movement = asset.FindActionMap("Movement", throwIfNotFound: true);
         m_Movement_Move = m_Movement.FindAction("Move", throwIfNotFound: true);
-        m_Movement_Pull = m_Movement.FindAction("Pull", throwIfNotFound: true);
-        m_Movement_Stop = m_Movement.FindAction("Stop", throwIfNotFound: true);
-        // Selection
-        m_Selection = asset.FindActionMap("Selection", throwIfNotFound: true);
-        m_Selection_Newaction = m_Selection.FindAction("New action", throwIfNotFound: true);
         // Fire
         m_Fire = asset.FindActionMap("Fire", throwIfNotFound: true);
         m_Fire_Fire = m_Fire.FindAction("Fire", throwIfNotFound: true);
@@ -271,15 +201,11 @@ public class @PlayerInputActions : IInputActionCollection, IDisposable
     private readonly InputActionMap m_Movement;
     private IMovementActions m_MovementActionsCallbackInterface;
     private readonly InputAction m_Movement_Move;
-    private readonly InputAction m_Movement_Pull;
-    private readonly InputAction m_Movement_Stop;
     public struct MovementActions
     {
         private @PlayerInputActions m_Wrapper;
         public MovementActions(@PlayerInputActions wrapper) { m_Wrapper = wrapper; }
         public InputAction @Move => m_Wrapper.m_Movement_Move;
-        public InputAction @Pull => m_Wrapper.m_Movement_Pull;
-        public InputAction @Stop => m_Wrapper.m_Movement_Stop;
         public InputActionMap Get() { return m_Wrapper.m_Movement; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -292,12 +218,6 @@ public class @PlayerInputActions : IInputActionCollection, IDisposable
                 @Move.started -= m_Wrapper.m_MovementActionsCallbackInterface.OnMove;
                 @Move.performed -= m_Wrapper.m_MovementActionsCallbackInterface.OnMove;
                 @Move.canceled -= m_Wrapper.m_MovementActionsCallbackInterface.OnMove;
-                @Pull.started -= m_Wrapper.m_MovementActionsCallbackInterface.OnPull;
-                @Pull.performed -= m_Wrapper.m_MovementActionsCallbackInterface.OnPull;
-                @Pull.canceled -= m_Wrapper.m_MovementActionsCallbackInterface.OnPull;
-                @Stop.started -= m_Wrapper.m_MovementActionsCallbackInterface.OnStop;
-                @Stop.performed -= m_Wrapper.m_MovementActionsCallbackInterface.OnStop;
-                @Stop.canceled -= m_Wrapper.m_MovementActionsCallbackInterface.OnStop;
             }
             m_Wrapper.m_MovementActionsCallbackInterface = instance;
             if (instance != null)
@@ -305,49 +225,10 @@ public class @PlayerInputActions : IInputActionCollection, IDisposable
                 @Move.started += instance.OnMove;
                 @Move.performed += instance.OnMove;
                 @Move.canceled += instance.OnMove;
-                @Pull.started += instance.OnPull;
-                @Pull.performed += instance.OnPull;
-                @Pull.canceled += instance.OnPull;
-                @Stop.started += instance.OnStop;
-                @Stop.performed += instance.OnStop;
-                @Stop.canceled += instance.OnStop;
             }
         }
     }
     public MovementActions @Movement => new MovementActions(this);
-
-    // Selection
-    private readonly InputActionMap m_Selection;
-    private ISelectionActions m_SelectionActionsCallbackInterface;
-    private readonly InputAction m_Selection_Newaction;
-    public struct SelectionActions
-    {
-        private @PlayerInputActions m_Wrapper;
-        public SelectionActions(@PlayerInputActions wrapper) { m_Wrapper = wrapper; }
-        public InputAction @Newaction => m_Wrapper.m_Selection_Newaction;
-        public InputActionMap Get() { return m_Wrapper.m_Selection; }
-        public void Enable() { Get().Enable(); }
-        public void Disable() { Get().Disable(); }
-        public bool enabled => Get().enabled;
-        public static implicit operator InputActionMap(SelectionActions set) { return set.Get(); }
-        public void SetCallbacks(ISelectionActions instance)
-        {
-            if (m_Wrapper.m_SelectionActionsCallbackInterface != null)
-            {
-                @Newaction.started -= m_Wrapper.m_SelectionActionsCallbackInterface.OnNewaction;
-                @Newaction.performed -= m_Wrapper.m_SelectionActionsCallbackInterface.OnNewaction;
-                @Newaction.canceled -= m_Wrapper.m_SelectionActionsCallbackInterface.OnNewaction;
-            }
-            m_Wrapper.m_SelectionActionsCallbackInterface = instance;
-            if (instance != null)
-            {
-                @Newaction.started += instance.OnNewaction;
-                @Newaction.performed += instance.OnNewaction;
-                @Newaction.canceled += instance.OnNewaction;
-            }
-        }
-    }
-    public SelectionActions @Selection => new SelectionActions(this);
 
     // Fire
     private readonly InputActionMap m_Fire;
@@ -417,12 +298,6 @@ public class @PlayerInputActions : IInputActionCollection, IDisposable
     public interface IMovementActions
     {
         void OnMove(InputAction.CallbackContext context);
-        void OnPull(InputAction.CallbackContext context);
-        void OnStop(InputAction.CallbackContext context);
-    }
-    public interface ISelectionActions
-    {
-        void OnNewaction(InputAction.CallbackContext context);
     }
     public interface IFireActions
     {

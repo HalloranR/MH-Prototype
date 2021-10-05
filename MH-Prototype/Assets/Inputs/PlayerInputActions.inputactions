@@ -12,22 +12,6 @@
                     "expectedControlType": "Vector2",
                     "processors": "",
                     "interactions": ""
-                },
-                {
-                    "name": "Pull",
-                    "type": "Button",
-                    "id": "9e52f995-caa9-491a-ad4c-bc8548ee4d08",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": ""
-                },
-                {
-                    "name": "Stop",
-                    "type": "Button",
-                    "id": "cee41146-958d-492a-9dc0-68d3dbfc14ee",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": ""
                 }
             ],
             "bindings": [
@@ -85,55 +69,6 @@
                     "action": "Move",
                     "isComposite": false,
                     "isPartOfComposite": true
-                },
-                {
-                    "name": "",
-                    "id": "78257716-31c3-47ea-b83f-470e202e9724",
-                    "path": "<Keyboard>/e",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Pull",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "46fb75c4-6235-4e0d-a99e-b025ec236d38",
-                    "path": "<Keyboard>/q",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Stop",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                }
-            ]
-        },
-        {
-            "name": "Selection",
-            "id": "dba3acd6-fe09-4385-854b-136c533a3bd1",
-            "actions": [
-                {
-                    "name": "New action",
-                    "type": "Button",
-                    "id": "887d2f3a-a5c5-448f-9469-e5fbb4046849",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": ""
-                }
-            ],
-            "bindings": [
-                {
-                    "name": "",
-                    "id": "307b8cd1-9890-4aa6-abe3-b959122dcc0d",
-                    "path": "",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "New action",
-                    "isComposite": false,
-                    "isPartOfComposite": false
                 }
             ]
         },
@@ -147,7 +82,7 @@
                     "id": "01b9b678-5217-4a75-a7b3-582e39cd0835",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "Press(behavior=2)"
                 }
             ],
             "bindings": [
@@ -174,7 +109,7 @@
                     "id": "eae088ca-4a07-4824-8691-e6965d516f0a",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "Press(behavior=2)"
                 }
             ],
             "bindings": [
