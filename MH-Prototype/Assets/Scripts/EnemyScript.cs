@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Enemy_Script : MonoBehaviour
+public class EnemyScript : MonoBehaviour
 {
     public Rigidbody2D rb;
     public int health = 10;

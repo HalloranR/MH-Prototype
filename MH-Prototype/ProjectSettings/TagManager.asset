@@ -7,8 +7,6 @@ TagManager:
   - Border
   - Ally
   - Bullet
-  - pc
-  - Enemy
   layers:
   - Default
   - TransparentFX
