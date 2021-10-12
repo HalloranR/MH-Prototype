@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1855247887071027206}
   - component: {fileID: 1855247887071027204}
   - component: {fileID: 1855247887071027205}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: GameObject
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -122,9 +122,9 @@ GameObject:
   - component: {fileID: 1855247887829977963}
   - component: {fileID: 1855247887829977964}
   - component: {fileID: 1855247887829977960}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Enemy
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -204,7 +204,7 @@ BoxCollider2D:
   m_GameObject: {fileID: 1855247887829977965}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: eb5a12e726369214d9b2aa00cde64fdf, type: 2}
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
@@ -234,14 +234,14 @@ Rigidbody2D:
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
   m_Mass: 1
-  m_LinearDrag: 0
+  m_LinearDrag: 0.5
   m_AngularDrag: 0.05
   m_GravityScale: 0
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: eb5a12e726369214d9b2aa00cde64fdf, type: 2}
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 7
+  m_Constraints: 4
 --- !u!114 &1855247887829977960
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -257,3 +257,6 @@ MonoBehaviour:
   rb: {fileID: 1855247887829977964}
   health: 10
   lifeLoss: 10
+  timer: 5
+  reset: 5
+  ally: {x: 0, y: 0}

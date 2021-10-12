@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2330661461692641884}
   - component: {fileID: 1239748481858930145}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -94,7 +94,7 @@ GameObject:
   - component: {fileID: -6351942866109318009}
   - component: {fileID: 4447178610365187853}
   - component: {fileID: -8787500309410189431}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Player Character
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -134,9 +134,8 @@ MonoBehaviour:
   bound: 0
   push: 0
   bust: 0
-  speed: 10
+  walkSpeed: 10
   pullSpeed: 1000
-  pullVelocity: {x: 7, y: 7}
 --- !u!50 &4447178610365187853
 Rigidbody2D:
   serializedVersion: 4
@@ -150,7 +149,7 @@ Rigidbody2D:
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
   m_Mass: 1
-  m_LinearDrag: 0
+  m_LinearDrag: 0.5
   m_AngularDrag: 0.05
   m_GravityScale: 0
   m_Material: {fileID: 0}
@@ -167,7 +166,7 @@ BoxCollider2D:
   m_GameObject: {fileID: 3217235847729604424}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: eb5a12e726369214d9b2aa00cde64fdf, type: 2}
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0

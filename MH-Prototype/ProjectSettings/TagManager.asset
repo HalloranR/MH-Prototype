@@ -6,6 +6,8 @@ TagManager:
   tags:
   - Border
   - Ally
+  - Bullet
+  - Enemy
   layers:
   - Default
   - TransparentFX
@@ -13,11 +15,11 @@ TagManager:
   - 
   - Water
   - UI
-  - 
-  - 
-  - 
-  - 
-  - 
+  - Enemy
+  - Bullet
+  - Ally
+  - Enemy
+  - PC
   - 
   - 
   - 
