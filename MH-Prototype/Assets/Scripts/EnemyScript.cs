@@ -8,9 +8,15 @@ public class EnemyScript : MonoBehaviour
     public int health = 10;
     public int lifeLoss = 4;
 
+    public GameObject pc;
+
+    private float timer = 5f;
+
     void Start()
     {
         rb = this.GetComponent<Rigidbody2D>();
+
+        pc = GameObject.FindWithTag("pc");
     }
 
 
@@ -18,7 +24,14 @@ public class EnemyScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(health <= 0)
+        timer -= Time.deltaTime;
+        if (timer <= 0)
+        {
+            Shoot();
+            timer = 5f;
+        }
+
+        if (health <= 0)
         {
             Destroy(gameObject);
         }
@@ -30,5 +43,11 @@ public class EnemyScript : MonoBehaviour
         {
             health -= lifeLoss;
         }
+    }
+
+    void Shoot()
+    {
+        Vector2 pcPos = (Vector2)pc.transform.position;
+        print(pcPos);
     }
 }
