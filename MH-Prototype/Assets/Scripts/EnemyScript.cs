@@ -7,13 +7,16 @@ public class EnemyScript : MonoBehaviour
     public Rigidbody2D rb;
     public int health = 10;
     public int lifeLoss = 4;
-    public float timer = 5f;
-    public float reset = 5f;
-    public Vector2 ally;
+
+    public GameObject pc;
+
+    private float timer = 5f;
 
     void Start()
     {
         rb = this.GetComponent<Rigidbody2D>();
+
+        pc = GameObject.FindWithTag("pc");
     }
 
 
@@ -22,23 +25,16 @@ public class EnemyScript : MonoBehaviour
     void Update()
     {
         timer -= Time.deltaTime;
-
         if (timer <= 0)
         {
             Shoot();
-            timer = reset;
+            timer = 5f;
         }
 
-        if (health <= 0) { Destroy(gameObject); }
-    }
-
-    private void Shoot()
-    {
-        GameObject rBullet = (GameObject)Instantiate(Resources.Load("Bullet"));
-
-        ally = GameObject.FindWithTag("Ally").transform.position;
-
-        rBullet.GetComponent<Bullet_Script>().dest = ally;
+        if (health <= 0)
+        {
+            Destroy(gameObject);
+        }
     }
 
     void OnCollisionEnter2D(Collision2D col)
@@ -47,5 +43,11 @@ public class EnemyScript : MonoBehaviour
         {
             health -= lifeLoss;
         }
+    }
+
+    void Shoot()
+    {
+        Vector2 pcPos = (Vector2)pc.transform.position;
+        print(pcPos);
     }
 }
