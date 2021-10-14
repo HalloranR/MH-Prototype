@@ -115,29 +115,8 @@ public class @PlayerInputActions : IInputActionCollection, IDisposable
         {
             ""name"": ""Push"",
             ""id"": ""68e08875-df00-404a-935f-60a9b46b787b"",
-            ""actions"": [
-                {
-                    ""name"": ""Push"",
-                    ""type"": ""Button"",
-                    ""id"": ""eae088ca-4a07-4824-8691-e6965d516f0a"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": ""Press(behavior=2)""
-                }
-            ],
-            ""bindings"": [
-                {
-                    ""name"": """",
-                    ""id"": ""d11df718-7f45-4526-b586-9bd9e87f8919"",
-                    ""path"": ""<Keyboard>/r"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Push"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                }
-            ]
+            ""actions"": [],
+            ""bindings"": []
         }
     ],
     ""controlSchemes"": []
@@ -150,7 +129,6 @@ public class @PlayerInputActions : IInputActionCollection, IDisposable
         m_Fire_Fire = m_Fire.FindAction("Fire", throwIfNotFound: true);
         // Push
         m_Push = asset.FindActionMap("Push", throwIfNotFound: true);
-        m_Push_Push = m_Push.FindAction("Push", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -266,12 +244,10 @@ public class @PlayerInputActions : IInputActionCollection, IDisposable
     // Push
     private readonly InputActionMap m_Push;
     private IPushActions m_PushActionsCallbackInterface;
-    private readonly InputAction m_Push_Push;
     public struct PushActions
     {
         private @PlayerInputActions m_Wrapper;
         public PushActions(@PlayerInputActions wrapper) { m_Wrapper = wrapper; }
-        public InputAction @Push => m_Wrapper.m_Push_Push;
         public InputActionMap Get() { return m_Wrapper.m_Push; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -281,16 +257,10 @@ public class @PlayerInputActions : IInputActionCollection, IDisposable
         {
             if (m_Wrapper.m_PushActionsCallbackInterface != null)
             {
-                @Push.started -= m_Wrapper.m_PushActionsCallbackInterface.OnPush;
-                @Push.performed -= m_Wrapper.m_PushActionsCallbackInterface.OnPush;
-                @Push.canceled -= m_Wrapper.m_PushActionsCallbackInterface.OnPush;
             }
             m_Wrapper.m_PushActionsCallbackInterface = instance;
             if (instance != null)
             {
-                @Push.started += instance.OnPush;
-                @Push.performed += instance.OnPush;
-                @Push.canceled += instance.OnPush;
             }
         }
     }
@@ -305,6 +275,5 @@ public class @PlayerInputActions : IInputActionCollection, IDisposable
     }
     public interface IPushActions
     {
-        void OnPush(InputAction.CallbackContext context);
     }
 }

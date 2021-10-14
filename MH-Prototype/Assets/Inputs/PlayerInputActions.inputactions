@@ -102,29 +102,8 @@
         {
             "name": "Push",
             "id": "68e08875-df00-404a-935f-60a9b46b787b",
-            "actions": [
-                {
-                    "name": "Push",
-                    "type": "Button",
-                    "id": "eae088ca-4a07-4824-8691-e6965d516f0a",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "Press(behavior=2)"
-                }
-            ],
-            "bindings": [
-                {
-                    "name": "",
-                    "id": "d11df718-7f45-4526-b586-9bd9e87f8919",
-                    "path": "<Keyboard>/r",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Push",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                }
-            ]
+            "actions": [],
+            "bindings": []
         }
     ],
     "controlSchemes": []

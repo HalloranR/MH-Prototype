@@ -6,10 +6,20 @@ public class Ally_Script : MonoBehaviour
 {
     public int health = 5;
     public int damage = 1;
+    public healthbar_Script healthBar;
+
+    void Start()
+    {
+        healthBar.SetMaxHealth(health);
+    }
 
     void Update()
     {
-        if (health <= 0) { Destroy(gameObject); }
+        if (health <= 0) 
+        { 
+            Destroy(gameObject); 
+
+        }
     }
 
     private void OnCollisionEnter2D(Collision2D col)
@@ -17,6 +27,7 @@ public class Ally_Script : MonoBehaviour
         if (col.gameObject.tag == "Bullet")
         {
             health -= damage;
+            healthBar.SetHealth(health);
         }
     }
 }

@@ -13,14 +13,12 @@ public class PC_Script : MonoBehaviour
 
     //bools for help
     public bool bound = false;
-    public bool push = false;
     public bool bust = false;
     [SerializeField] private float walkSpeed = 10f;
     [SerializeField] float pullSpeed = 7f;
 
     void Awake()
     {
-        print("first");
         playerInput = new PlayerInputActions();
         rb = GetComponent<Rigidbody2D>();
         allyRB = ally.GetComponent<Rigidbody2D>();
@@ -32,9 +30,6 @@ public class PC_Script : MonoBehaviour
 
         playerInput.Fire.Fire.performed += DoFire;
         playerInput.Fire.Fire.Enable();
-
-        playerInput.Push.Push.performed += DoPush;
-        playerInput.Push.Push.Enable();
     }
 
     private void OnDisable(){ playerInput.Disable(); }
@@ -65,16 +60,6 @@ public class PC_Script : MonoBehaviour
                 line.SetPosition(1, new Vector2(0, 0));
             }
         }
-        if (push == true)
-        {
-            line.SetPosition(0, transform.position);
-            line.SetPosition(1, ally.transform.position);
-
-            float step = pullSpeed * Time.deltaTime;
-            Vector2 difference = (Vector2)ally.transform.position - (Vector2)transform.position;
-
-            allyRB.MovePosition((Vector2)ally.transform.position + difference * step);
-        }
     }
 
     private void DoFire(InputAction.CallbackContext obj)
@@ -89,21 +74,6 @@ public class PC_Script : MonoBehaviour
             line.SetPosition(1, new Vector2(0, 0));
             bound = false;
             bust = false;
-            allyRB.velocity = new Vector2(0f, 0f);
-        }
-    }
-
-    private void DoPush(InputAction.CallbackContext obj)
-    {
-        if (push == false)
-        {
-            push = true;
-        }
-        else if (push == true)
-        {
-            push = false;
-            line.SetPosition(0, new Vector2(0, 0));
-            line.SetPosition(1, new Vector2(0, 0));
             allyRB.velocity = new Vector2(0f, 0f);
         }
     }
