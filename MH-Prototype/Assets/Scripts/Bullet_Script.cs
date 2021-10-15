@@ -7,7 +7,7 @@ public class Bullet_Script : MonoBehaviour
     public Vector2 dest;
     public Vector2 angle;
     public float speed = 5f;
-    public float jitter = 0f;
+    public float jitter = 0f; //random range
 
     // Update is called once per frame
     void FixedUpdate()
@@ -16,7 +16,7 @@ public class Bullet_Script : MonoBehaviour
 
         //what do i do with the angle here?
 
-        transform.position = Vector2.MoveTowards(transform.position, dest, step);
+        transform.position = Vector2.MoveTowards(transform.position, (Vector2)transform.position + angle, step);
 
         transform.position = new Vector3(transform.position.x, transform.position.y, -1);
     }
@@ -35,7 +35,7 @@ public class Bullet_Script : MonoBehaviour
         dest = new Vector2(target.x, target.y);
         dest = dest + new Vector2(jitter, jitter);
 
-        angle = (Vector2)transform.position - dest;
+        angle = dest - (Vector2)transform.position;
         angle.Normalize();
     }
 }

@@ -1,12 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Ally_Script : MonoBehaviour
 {
     public int health = 5;
     public int damage = 1;
-    public healthbar_Script healthBar;
+    public HealthBar_Script healthBar;
 
     void Start()
     {
@@ -17,7 +18,8 @@ public class Ally_Script : MonoBehaviour
     {
         if (health <= 0) 
         { 
-            Destroy(gameObject); 
+            Destroy(gameObject);
+            SceneManager.LoadScene(1);
 
         }
     }
