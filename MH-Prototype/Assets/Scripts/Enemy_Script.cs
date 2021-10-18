@@ -7,15 +7,17 @@ public class Enemy_Script : MonoBehaviour
     public Rigidbody2D rb;
     public int health = 10;
     public int lifeLoss = 4;
-    public float timer = 5f;
+    public float timer;
     public float reset = 5f;
     public Vector2 ally;
     public float delay = 2f;
-    public float friction = 2f;
+    public float ratio = 1.1f;
 
     void Start()
     {
         rb = this.GetComponent<Rigidbody2D>();
+        timer = reset + Random.Range(-delay, delay);
+        reset = timer;
     }
 
 
@@ -28,10 +30,16 @@ public class Enemy_Script : MonoBehaviour
         if (timer <= 0)
         {
             Shoot();
-            timer = reset + Random.Range(0f, delay);
+            timer = reset;
         }
+
         //change velocity here
-        //if()
+        Vector3 velocity = rb.velocity;
+
+        if (velocity != new Vector3(0, 0, 0)) 
+        {
+            //CheckSpeed();
+        }
 
         if (health <= 0) { Destroy(gameObject); }
     }
@@ -52,6 +60,16 @@ public class Enemy_Script : MonoBehaviour
         if(col.gameObject.tag == "Ally")
         {
             health -= lifeLoss;
+        }
+    }
+ 
+    public void CheckSpeed()
+    {
+        Vector3 velocity = rb.velocity;
+
+        if (velocity != new Vector3(0, 0, 0))
+        {
+            rb.velocity = new Vector3(velocity.x / ratio, velocity.y / ratio, velocity.z / ratio);
         }
     }
 }

@@ -5,17 +5,11 @@ using UnityEngine.SceneManagement;
 
 public class Tracker_Script : MonoBehaviour
 {
-    
-    void Start()
-    {
-        
-    }
-
     // Update is called once per frame
     void Update()
     {
-        int num = 0;
-        if(GameObject.FindGameObjectsWithTag("Enemy") == null)
+        GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
+        if(enemies.Length <= 0)
         {
             print("here none");
             SceneManager.LoadScene(2);
