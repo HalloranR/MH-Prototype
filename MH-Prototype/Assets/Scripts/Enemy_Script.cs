@@ -12,17 +12,18 @@ public class Enemy_Script : MonoBehaviour
     public Vector2 ally;
     public float delay = 2f;
     public float ratio = 1.1f;
+    public bool bound;
+    public PC_Script pc;
 
     void Start()
     {
         rb = this.GetComponent<Rigidbody2D>();
         timer = reset + Random.Range(-delay, delay);
         reset = timer;
+        pc = GameObject.FindWithTag("Player").GetComponent<PC_Script>();
     }
 
 
-
-    // Update is called once per frame
     void Update()
     {
         timer -= Time.deltaTime;
@@ -59,7 +60,9 @@ public class Enemy_Script : MonoBehaviour
     {
         if(col.gameObject.tag == "Ally")
         {
-            health -= lifeLoss;
+            bound = pc.bound;
+
+            if (bound) { health -= lifeLoss; }
         }
     }
  
