@@ -19,6 +19,7 @@ public class Enemy_Script : MonoBehaviour
     public float timer;
     public float reset = 5f;
     public float delay = 2f;
+    public LayerMask pillarLayer;
 
     void Start()
     {

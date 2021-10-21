@@ -56,6 +56,7 @@ public class PC_Script : MonoBehaviour
         //use and if else so that that it mimics holding the button for the action
         if (bound == false)
         {
+            //print(FireLaser());
             bound = true;
         }
         else if (bound == true)
@@ -92,4 +93,18 @@ public class PC_Script : MonoBehaviour
             line.SetPosition(1, new Vector2(0, 0));
         }
     }
+
+    //public bool FireLaser()
+    //{
+        //Ray ray = new Ray(transform.position, ally.transform.position);
+
+        //RaycastHit hitData;
+
+        //public LayerMask pillarLayer;
+
+        //Physics.Raycast(ray, out hitData, pillarLayer);
+
+        //if (hitData.collider.tag == "Pillar") { return false; }
+        //else { return true; }
+    //}
 }
