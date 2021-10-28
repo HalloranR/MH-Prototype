@@ -33,8 +33,14 @@ public class Ally_Script : MonoBehaviour
         //take damage if the object is a bullet, change the health bar
         if (col.gameObject.tag == "Bullet")
         {
-            health -= damage;
-            healthBar.SetHealth(health);
+            Damage();
         }
+    }
+
+    public void Damage()
+    {
+        //function to handle damage
+        health -= damage;
+        healthBar.SetHealth(health);
     }
 }

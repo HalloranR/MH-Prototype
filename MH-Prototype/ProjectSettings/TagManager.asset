@@ -9,6 +9,7 @@ TagManager:
   - Bullet
   - Enemy
   - Lava
+  - Pillar
   layers:
   - Default
   - TransparentFX
@@ -21,8 +22,8 @@ TagManager:
   - Ally
   - Enemy
   - PC
-  - 
-  - 
+  - Lava
+  - Pillar
   - 
   - 
   - 
