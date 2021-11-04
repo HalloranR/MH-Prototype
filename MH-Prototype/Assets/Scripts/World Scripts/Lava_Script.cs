@@ -6,7 +6,7 @@ public class Lava_Script : MonoBehaviour
 {
     void OnTriggerEnter2D (Collider2D col)
     {
-        print(col.gameObject.tag);
+        //print(col.gameObject.tag);
         if (col.gameObject.tag == "Ally")
         {
             col.gameObject.GetComponent<Ally_Script>().Damage();

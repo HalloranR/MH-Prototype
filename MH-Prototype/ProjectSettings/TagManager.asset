@@ -10,6 +10,7 @@ TagManager:
   - Enemy
   - Lava
   - Pillar
+  - Enemy2
   layers:
   - Default
   - TransparentFX

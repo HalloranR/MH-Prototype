@@ -69,6 +69,7 @@ public class Enemy_Script : MonoBehaviour
         //take damage if the ally runs into the enemy and it is being pulled
         if(col.gameObject.tag == "Ally")
         {
+            //check to make sure the pc is pulling
             bound = pc.bound;
 
             if (bound) { health -= lifeLoss; }
