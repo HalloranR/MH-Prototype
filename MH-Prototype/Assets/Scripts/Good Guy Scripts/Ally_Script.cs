@@ -31,10 +31,20 @@ public class Ally_Script : MonoBehaviour
     private void OnCollisionEnter2D(Collision2D col)
     {
         //take damage if the object is a bullet, change the health bar
-        if (col.gameObject.tag == "Bullet")
+        if (col.gameObject.tag == "Bullet") { Damage(); }
+
+        //take damage if the object is a physical enemy and it is attacking
+        if (col.gameObject.tag == "Enemy2")
         {
-            health -= damage;
-            healthBar.SetHealth(health);
+            bool yes = !col.gameObject.GetComponent<Physical_Script>().attack;
+            if (yes) { Damage(); }
         }
+    }
+
+    public void Damage()
+    {
+        //function to handle damage
+        health -= damage;
+        healthBar.SetHealth(health);
     }
 }
