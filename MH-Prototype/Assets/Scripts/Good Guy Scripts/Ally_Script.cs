@@ -36,7 +36,9 @@ public class Ally_Script : MonoBehaviour
         //take damage if the object is a physical enemy and it is attacking
         if (col.gameObject.tag == "Enemy2")
         {
-            bool yes = !col.gameObject.GetComponent<Physical_Script>().attack;
+            print("hit!");
+            bool yes = col.gameObject.GetComponent<Physical_Script>().attack;
+            print(yes);
             if (yes) { Damage(); }
         }
     }

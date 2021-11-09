@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
 
 public class Physical_Script : MonoBehaviour
 {
@@ -16,14 +17,15 @@ public class Physical_Script : MonoBehaviour
     GameObject[] allies; //not used
 
     //here is internal vars
-    public float moveSpeed = 17f;
-    public bool attack = true;
+    public floats moveSpeed = 1f;
+    public bool attack = false;
     public LineRenderer line;
 
     //variables for attacking
     public float timer;
-    public float reset = 5f;
+    public float reset = 7f;
     public float delay = 2f;
+    public float length = 10f;
 
 
     void Start()
@@ -61,32 +63,25 @@ public class Physical_Script : MonoBehaviour
             //check if pc is pulling
             bound = pc.bound;
 
-            if (bound && attack) { health -= lifeLoss; }
+            if (bound && !attack) { health -= lifeLoss; }
         }
     }
 
     public void Follow()
     {
-        //set bool to false so it stops damage
-        attack = false;
-        print("Here is be");
-
-        //move the enemy in steps using the difference and the pullspeed
-        float step = moveSpeed * Time.deltaTime;
-        Vector3 difference = transform.position - ally.transform.position;
-
-        //set up the line render
-        line.SetPosition(0, transform.position);
-        line.SetPosition(1, difference);
-
-        //move the enemy
-        rb.MovePosition(ally.transform.position + difference * step);
-
-        //reset everything at the end
-        line.SetPosition(0, transform.position);
-        line.SetPosition(1, transform.position);
-
-
+        //set bool to true so it stops damage
         attack = true;
+
+        Vector2 dir = (Vector2)ally.transform.position - (Vector2)transform.position;
+        dir = dir.normalized * length;
+        print(dir);
+
+        transform.DOMove((Vector2)transform.position + dir, 1).OnComplete(MyCallback);
+
+    }
+
+    public void MyCallback()
+    {
+        if (attack == true) { attack = false; }
     }
 }

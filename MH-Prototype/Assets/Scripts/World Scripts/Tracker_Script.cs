@@ -9,10 +9,14 @@ public class Tracker_Script : MonoBehaviour
     void Update()
     {
         GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
-        if(enemies.Length <= 0)
+        GameObject[] enemies2 = GameObject.FindGameObjectsWithTag("Enemy2");
+        if (enemies.Length <= 0)
         {
-            print("here none");
-            SceneManager.LoadScene(2);
+            if (enemies2.Length <= 0)
+            {
+                print("here none");
+                SceneManager.LoadScene(2);
+            }
         }
     }
 }
