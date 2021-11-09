@@ -85,6 +85,8 @@ public class Physical_Script : MonoBehaviour
         //reset everything at the end
         line.SetPosition(0, transform.position);
         line.SetPosition(1, transform.position);
+
+
         attack = true;
     }
 }
