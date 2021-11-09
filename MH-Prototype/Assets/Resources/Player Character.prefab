@@ -96,7 +96,7 @@ GameObject:
   - component: {fileID: -8787500309410189431}
   m_Layer: 10
   m_Name: Player Character
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -128,14 +128,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 845abfbd895816447b550f14e0c0880c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  line: {fileID: 0}
-  ally: {fileID: 0}
-  allyRB: {fileID: 0}
   bound: 0
-  push: 0
   bust: 0
   walkSpeed: 10
   pullSpeed: 1000
+  line: {fileID: 0}
+  ally: {fileID: 0}
+  allyRB: {fileID: 0}
 --- !u!50 &4447178610365187853
 Rigidbody2D:
   serializedVersion: 4
