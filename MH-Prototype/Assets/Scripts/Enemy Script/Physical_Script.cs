@@ -72,11 +72,13 @@ public class Physical_Script : MonoBehaviour
         //set bool to true so it stops damage
         attack = true;
 
-        Vector2 dir = (Vector2)ally.transform.position - (Vector2)transform.position;
+        Vector3 dir = ally.transform.position - transform.position;
         dir = dir.normalized * length;
+        //keep old z axis
+        dir = new Vector3(dir.x, dir.y, 0);
         print(dir);
 
-        transform.DOMove((Vector2)transform.position + dir, 1).OnComplete(MyCallback);
+        transform.DOMove(transform.position + dir, 1).OnComplete(MyCallback);
 
     }
 
