@@ -17,7 +17,7 @@ public class Physical_Script : MonoBehaviour
     GameObject[] allies; //not used
 
     //here is internal vars
-    public floats moveSpeed = 1f;
+    public float moveSpeed = 1f;
     public bool attack = false;
     public LineRenderer line;
 
