@@ -6,8 +6,9 @@ public class Enemy_Script : MonoBehaviour
 {
     //things i need to fetch
     public Rigidbody2D rb;
-    public Vector2 ally;
+    public GameObject ally;
     public PC_Script pc;
+    public Tracker_Script god;
     public bool bound;
     
     //internal variables
@@ -26,11 +27,11 @@ public class Enemy_Script : MonoBehaviour
         //get objects for easy access
         rb = this.GetComponent<Rigidbody2D>();
         pc = GameObject.FindWithTag("Player").GetComponent<PC_Script>();
+        god = GameObject.FindWithTag("GameController").GetComponent<Tracker_Script>();
 
         //set up the timer
         timer = reset + Random.Range(-delay, delay);
         reset = timer;
-        
     }
 
     void Update()
@@ -58,10 +59,10 @@ public class Enemy_Script : MonoBehaviour
         rBullet.transform.position = new Vector3(transform.position.x, transform.position.y, -2);
 
         //get the ally location
-        ally = GameObject.FindWithTag("Ally").transform.position;
+        ally = god.GetClosest(transform.position);
 
         //call the function in the bullet script
-        rBullet.GetComponent<Bullet_Script>().Target(ally);
+        rBullet.GetComponent<Bullet_Script>().Target(ally.transform.position);
     }
 
     void OnCollisionEnter2D(Collision2D col)

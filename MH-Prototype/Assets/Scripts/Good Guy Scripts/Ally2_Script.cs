@@ -1,9 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
-public class Ally_Script : MonoBehaviour
+public class Ally2_Script : MonoBehaviour
 {
     //internal variables
     public int health = 5;
@@ -11,6 +10,7 @@ public class Ally_Script : MonoBehaviour
 
     //variable for health bar
     public HealthBar_Script healthBar;
+
 
     void Start()
     {
@@ -20,10 +20,10 @@ public class Ally_Script : MonoBehaviour
 
     void Update()
     {
-        if (health <= 0) 
-        { 
+        if (health <= 0)
+        {
             //destroy the object
-            Destroy(gameObject);
+            Destroy(this.gameObject);
         }
     }
 
@@ -35,7 +35,6 @@ public class Ally_Script : MonoBehaviour
         //take damage if the object is a physical enemy and it is attacking
         if (col.gameObject.tag == "Enemy2")
         {
-            print("hit!");
             bool yes = col.gameObject.GetComponent<Physical_Script>().attack;
             print(yes);
             if (yes) { Damage(); }

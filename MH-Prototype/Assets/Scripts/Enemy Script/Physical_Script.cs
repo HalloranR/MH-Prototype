@@ -73,17 +73,39 @@ public class Physical_Script : MonoBehaviour
         attack = true;
 
         Vector3 dir = ally.transform.position - transform.position;
-        dir = dir.normalized * length;
-        //keep old z axis
-        dir = new Vector3(dir.x, dir.y, 0);
-        print(dir);
 
-        transform.DOMove(transform.position + dir, 1).OnComplete(MyCallback);
+        if (CheckDir(dir))
+        {
+            dir = dir.normalized * length;
 
+            //keep old z axis
+            dir = new Vector3(dir.x, dir.y, 0);
+            print(dir);
+
+            transform.DOMove(transform.position + dir, 1).OnComplete(MyCallback);
+        }
+        else
+        {
+            print("change here");
+            attack = false;
+        }
     }
+    public void MyCallback() { if (attack == true) { attack = false; } }
 
-    public void MyCallback()
+    public bool CheckDir(Vector3 end)
     {
-        if (attack == true) { attack = false; }
+        int mask = 1 << LayerMask.NameToLayer("Pillar");
+
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, end, end.magnitude, mask);
+
+        if (hit)
+        {
+            if (hit.collider.gameObject.tag == "Pillar")
+            {
+                return false;
+            }
+        }
+
+        return true;
     }
 }

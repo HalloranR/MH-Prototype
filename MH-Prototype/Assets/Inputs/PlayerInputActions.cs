@@ -179,10 +179,80 @@ public class @PlayerInputActions : IInputActionCollection, IDisposable
             ]
         },
         {
-            ""name"": ""Push"",
-            ""id"": ""68e08875-df00-404a-935f-60a9b46b787b"",
-            ""actions"": [],
-            ""bindings"": []
+            ""name"": ""A"",
+            ""id"": ""d72203fe-29d2-466f-9a0c-1c1631759228"",
+            ""actions"": [
+                {
+                    ""name"": ""A"",
+                    ""type"": ""Button"",
+                    ""id"": ""9abec9e8-a385-4c54-bb49-81a497e0c1b2"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": ""Press(behavior=2)""
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""04d6580c-366f-4e24-8b0b-8495227f676a"",
+                    ""path"": ""<Gamepad>/buttonSouth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""A"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""a0f68410-eae9-496b-b077-daf239620703"",
+                    ""path"": ""<Keyboard>/1"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""A"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
+        },
+        {
+            ""name"": ""B"",
+            ""id"": ""eb015a31-9ed3-4a37-9d9a-50f57e278862"",
+            ""actions"": [
+                {
+                    ""name"": ""B"",
+                    ""type"": ""Button"",
+                    ""id"": ""10bb732a-a6e6-42e3-87b5-052261d57b9b"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": ""Press(behavior=2)""
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""5fb0b0cd-f11a-40d3-b0ba-1dc635261bfe"",
+                    ""path"": ""<Gamepad>/buttonEast"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""B"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""79e6f1f4-892e-4cea-ba87-06c028ebf91f"",
+                    ""path"": ""<Keyboard>/2"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""B"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
         }
     ],
     ""controlSchemes"": []
@@ -193,8 +263,12 @@ public class @PlayerInputActions : IInputActionCollection, IDisposable
         // Fire
         m_Fire = asset.FindActionMap("Fire", throwIfNotFound: true);
         m_Fire_Fire = m_Fire.FindAction("Fire", throwIfNotFound: true);
-        // Push
-        m_Push = asset.FindActionMap("Push", throwIfNotFound: true);
+        // A
+        m_A = asset.FindActionMap("A", throwIfNotFound: true);
+        m_A_A = m_A.FindAction("A", throwIfNotFound: true);
+        // B
+        m_B = asset.FindActionMap("B", throwIfNotFound: true);
+        m_B_B = m_B.FindAction("B", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -307,30 +381,71 @@ public class @PlayerInputActions : IInputActionCollection, IDisposable
     }
     public FireActions @Fire => new FireActions(this);
 
-    // Push
-    private readonly InputActionMap m_Push;
-    private IPushActions m_PushActionsCallbackInterface;
-    public struct PushActions
+    // A
+    private readonly InputActionMap m_A;
+    private IAActions m_AActionsCallbackInterface;
+    private readonly InputAction m_A_A;
+    public struct AActions
     {
         private @PlayerInputActions m_Wrapper;
-        public PushActions(@PlayerInputActions wrapper) { m_Wrapper = wrapper; }
-        public InputActionMap Get() { return m_Wrapper.m_Push; }
+        public AActions(@PlayerInputActions wrapper) { m_Wrapper = wrapper; }
+        public InputAction @A => m_Wrapper.m_A_A;
+        public InputActionMap Get() { return m_Wrapper.m_A; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
         public bool enabled => Get().enabled;
-        public static implicit operator InputActionMap(PushActions set) { return set.Get(); }
-        public void SetCallbacks(IPushActions instance)
+        public static implicit operator InputActionMap(AActions set) { return set.Get(); }
+        public void SetCallbacks(IAActions instance)
         {
-            if (m_Wrapper.m_PushActionsCallbackInterface != null)
+            if (m_Wrapper.m_AActionsCallbackInterface != null)
             {
+                @A.started -= m_Wrapper.m_AActionsCallbackInterface.OnA;
+                @A.performed -= m_Wrapper.m_AActionsCallbackInterface.OnA;
+                @A.canceled -= m_Wrapper.m_AActionsCallbackInterface.OnA;
             }
-            m_Wrapper.m_PushActionsCallbackInterface = instance;
+            m_Wrapper.m_AActionsCallbackInterface = instance;
             if (instance != null)
             {
+                @A.started += instance.OnA;
+                @A.performed += instance.OnA;
+                @A.canceled += instance.OnA;
             }
         }
     }
-    public PushActions @Push => new PushActions(this);
+    public AActions @A => new AActions(this);
+
+    // B
+    private readonly InputActionMap m_B;
+    private IBActions m_BActionsCallbackInterface;
+    private readonly InputAction m_B_B;
+    public struct BActions
+    {
+        private @PlayerInputActions m_Wrapper;
+        public BActions(@PlayerInputActions wrapper) { m_Wrapper = wrapper; }
+        public InputAction @B => m_Wrapper.m_B_B;
+        public InputActionMap Get() { return m_Wrapper.m_B; }
+        public void Enable() { Get().Enable(); }
+        public void Disable() { Get().Disable(); }
+        public bool enabled => Get().enabled;
+        public static implicit operator InputActionMap(BActions set) { return set.Get(); }
+        public void SetCallbacks(IBActions instance)
+        {
+            if (m_Wrapper.m_BActionsCallbackInterface != null)
+            {
+                @B.started -= m_Wrapper.m_BActionsCallbackInterface.OnB;
+                @B.performed -= m_Wrapper.m_BActionsCallbackInterface.OnB;
+                @B.canceled -= m_Wrapper.m_BActionsCallbackInterface.OnB;
+            }
+            m_Wrapper.m_BActionsCallbackInterface = instance;
+            if (instance != null)
+            {
+                @B.started += instance.OnB;
+                @B.performed += instance.OnB;
+                @B.canceled += instance.OnB;
+            }
+        }
+    }
+    public BActions @B => new BActions(this);
     public interface IMovementActions
     {
         void OnMove(InputAction.CallbackContext context);
@@ -339,7 +454,12 @@ public class @PlayerInputActions : IInputActionCollection, IDisposable
     {
         void OnFire(InputAction.CallbackContext context);
     }
-    public interface IPushActions
+    public interface IAActions
     {
+        void OnA(InputAction.CallbackContext context);
+    }
+    public interface IBActions
+    {
+        void OnB(InputAction.CallbackContext context);
     }
 }
