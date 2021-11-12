@@ -9,7 +9,14 @@ public class Lava_Script : MonoBehaviour
         //print(col.gameObject.tag);
         if (col.gameObject.tag == "Ally")
         {
-            col.gameObject.GetComponent<Ally_Script>().Damage();
+            if (col.gameObject.GetComponent<Ally_Script>() != null)
+            {
+                col.gameObject.GetComponent<Ally_Script>().Damage();
+            }
+            else if (col.gameObject.GetComponent<Ally2_Script>() != null)
+            {
+                col.gameObject.GetComponent<Ally2_Script>().Damage();
+            }
         }
     }
 }

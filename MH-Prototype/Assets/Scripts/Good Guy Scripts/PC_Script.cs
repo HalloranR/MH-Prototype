@@ -63,34 +63,28 @@ public class PC_Script : MonoBehaviour
         rb.velocity = moveInput * walkSpeed;
 
         //pull the ally if true
-        if (bound == true && bust == false && ally != null) { Pull(); }
+        if (bound == true && bust == false && ally != null) 
+        {
+            if (FireLaser()) { Pull(); } 
+        }
     }
 
     private void DoFire(InputAction.CallbackContext obj)
     {
-        //make sure you dont get a null reference
-        if (ally != null)
+        //use and if else so that that it mimics holding the button for the action
+        if (!bound)
         {
-            //use and if else so that that it mimics holding the button for the action
-            if (!bound)
-            {
-                if (FireLaser()) { bound = true; }
+            bound = true;
 
-            }
-            else if (bound)
-            {
-                //delete the line and reset vars
-                line.SetPosition(0, new Vector2(0, 0));
-                line.SetPosition(1, new Vector2(0, 0));
-                bound = false;
-                bust = false;
-                allyRB.velocity = new Vector2(0f, 0f);
-            }
         }
-        else
+        else if (bound)
         {
-            print("null pointer");
+            //delete the line and reset vars
+            line.SetPosition(0, new Vector2(0, 0));
+            line.SetPosition(1, new Vector2(0, 0));
             bound = false;
+            bust = false;
+            allyRB.velocity = new Vector2(0f, 0f);
         }
     }
 
@@ -142,7 +136,6 @@ public class PC_Script : MonoBehaviour
                 {
                     endpos = endpos + dir;
                     line.SetPosition(1, endpos);
-
                 }
                 line.SetPosition(1, transform.position);
                 return false;
@@ -158,6 +151,7 @@ public class PC_Script : MonoBehaviour
         {
             if (a)
             {
+                ally1.GetComponent<Ally_Script>().Turnoff();
                 ally = null;
                 allyRB = null;
                 a = false;
@@ -166,6 +160,7 @@ public class PC_Script : MonoBehaviour
             }
             else
             {
+                ally1.GetComponent<Ally_Script>().Turnon();
                 ally = ally1;
                 allyRB = allyRB1;
                 a = true;
@@ -179,6 +174,7 @@ public class PC_Script : MonoBehaviour
         {
             if (b)
             {
+                ally2.GetComponent<Ally2_Script>().Turnoff();
                 ally = null;
                 allyRB = null;
                 b = false;
@@ -187,6 +183,7 @@ public class PC_Script : MonoBehaviour
             }
             else
             {
+                ally2.GetComponent<Ally2_Script>().Turnon();
                 ally = ally2;
                 allyRB = allyRB2;
                 b = true;

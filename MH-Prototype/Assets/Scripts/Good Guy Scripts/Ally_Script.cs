@@ -8,6 +8,7 @@ public class Ally_Script : MonoBehaviour
     //internal variables
     public int health = 5;
     public int damage = 1;
+    public bool on = false;
 
     //variable for health bar
     public HealthBar_Script healthBar;
@@ -48,4 +49,7 @@ public class Ally_Script : MonoBehaviour
         health -= damage;
         healthBar.SetHealth(health);
     }
+
+    public void Turnon() { gameObject.transform.GetChild(2).GetComponent<SpriteRenderer>().enabled = true; }
+    public void Turnoff() { gameObject.transform.GetChild(2).GetComponent<SpriteRenderer>().enabled = false; }
 }

@@ -14,7 +14,7 @@ public class Physical_Script : MonoBehaviour
     private Rigidbody2D rb;
     public bool bound;
     public GameObject ally;
-    GameObject[] allies; //not used
+    public Tracker_Script god;
 
     //here is internal vars
     public float moveSpeed = 1f;
@@ -32,8 +32,7 @@ public class Physical_Script : MonoBehaviour
     {
         //fetch vars
         pc = GameObject.FindWithTag("Player").GetComponent<PC_Script>();
-        ally = GameObject.FindGameObjectWithTag("Ally");
-        rb = GetComponent<Rigidbody2D>();
+        god = GameObject.FindWithTag("GameController").GetComponent<Tracker_Script>();
 
         //set up the timer
         timer = reset + Random.Range(-delay, delay);
@@ -49,7 +48,9 @@ public class Physical_Script : MonoBehaviour
         //trigger the attack after time
         timer -= Time.deltaTime;
         if (timer <= 0) 
-        { 
+        {
+            //get the ally location
+            ally = god.GetClosest(transform.position);
             Follow();
             timer = reset;
         }
@@ -58,13 +59,16 @@ public class Physical_Script : MonoBehaviour
     void OnCollisionEnter2D(Collision2D col)
     {
         //take damage if the ally runs into the enemy and it is being pulled
-        if (col.gameObject.tag == "Ally")
+        if (col.gameObject.tag == "Ally" && col.gameObject != pc.GetComponent<PC_Script>().ally2)
         {
-            //check if pc is pulling
+            //check to make sure the pc is pulling
             bound = pc.bound;
 
-            if (bound && !attack) { health -= lifeLoss; }
+            //make sure the bound ally is dealing damage
+            if (bound && col.gameObject == pc.GetComponent<PC_Script>().ally) { health -= lifeLoss; }
         }
+        //for the projectile ally
+        if (col.gameObject.tag == "ABullet") { health -= lifeLoss; }
     }
 
     public void Follow()
@@ -80,7 +84,7 @@ public class Physical_Script : MonoBehaviour
 
             //keep old z axis
             dir = new Vector3(dir.x, dir.y, 0);
-            print(dir);
+            //print(dir);
 
             transform.DOMove(transform.position + dir, 1).OnComplete(MyCallback);
         }
@@ -102,7 +106,7 @@ public class Physical_Script : MonoBehaviour
         {
             if (hit.collider.gameObject.tag == "Pillar")
             {
-                return false;
+                //return false;
             }
         }
 

@@ -42,7 +42,7 @@ public class Enemy_Script : MonoBehaviour
 
         //change velocity here
         Vector3 velocity = rb.velocity;
-        if (velocity != new Vector3(0, 0, 0)) { //CheckSpeed(); 
+        if (velocity != new Vector3(0, 0, 0)) { //CheckSpeed();
         }
 
         //kill enemy here
@@ -68,13 +68,16 @@ public class Enemy_Script : MonoBehaviour
     void OnCollisionEnter2D(Collision2D col)
     {
         //take damage if the ally runs into the enemy and it is being pulled
-        if(col.gameObject.tag == "Ally")
+        if(col.gameObject.tag == "Ally" && col.gameObject != pc.GetComponent<PC_Script>().ally2)
         {
             //check to make sure the pc is pulling
             bound = pc.bound;
 
-            if (bound) { health -= lifeLoss; }
+            //make sure the bound ally is dealing damage
+            if (bound && col.gameObject == pc.GetComponent<PC_Script>().ally) { health -= lifeLoss; }
         }
+        //for the projectile ally
+        if (col.gameObject.tag == "ABullet") { health -= lifeLoss; }
     }
  
     public void CheckSpeed()
