@@ -151,12 +151,16 @@ public class PC_Script : MonoBehaviour
         {
             if (a)
             {
-                ally1.GetComponent<Ally_Script>().Turnoff();
-                ally = null;
-                allyRB = null;
+                if (ally == ally1) //prevents erasing the ally if you press 2 buttons
+                {
+                    ally1.GetComponent<Ally_Script>().Turnoff();
+                    ally = null;
+                    allyRB = null;
+                    line.SetPosition(0, new Vector2(0, 0));
+                    line.SetPosition(1, new Vector2(0, 0));
+                }
+                //still reset the var
                 a = false;
-                line.SetPosition(0, new Vector2(0, 0));
-                line.SetPosition(1, new Vector2(0, 0));
             }
             else
             {
@@ -174,12 +178,16 @@ public class PC_Script : MonoBehaviour
         {
             if (b)
             {
-                ally2.GetComponent<Ally2_Script>().Turnoff();
-                ally = null;
-                allyRB = null;
+                if (ally == ally2) //prevents erasing the ally if you press 2 buttons
+                {
+                    ally2.GetComponent<Ally2_Script>().Turnoff();
+                    ally = null;
+                    allyRB = null;
+                    line.SetPosition(0, new Vector2(0, 0));
+                    line.SetPosition(1, new Vector2(0, 0));
+                }
+                //still reset the var
                 b = false;
-                line.SetPosition(0, new Vector2(0, 0));
-                line.SetPosition(1, new Vector2(0, 0));
             }
             else
             {
