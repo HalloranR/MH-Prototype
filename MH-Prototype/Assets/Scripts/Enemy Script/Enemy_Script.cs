@@ -21,6 +21,7 @@ public class Enemy_Script : MonoBehaviour
     public float reset = 5f;
     public float delay = 2f;
     public LayerMask pillarLayer;
+    public Vector3 allyLoc; 
 
     void Start()
     {
@@ -38,6 +39,7 @@ public class Enemy_Script : MonoBehaviour
     {
         //timer for enemy to shoot
         timer -= Time.deltaTime;
+        if (timer <= 1.5) { Telegraph(); }
         if (timer <= 0) { Shoot(); }
 
         //change velocity here
@@ -58,11 +60,12 @@ public class Enemy_Script : MonoBehaviour
         GameObject rBullet = (GameObject)Instantiate(Resources.Load("Bullet"));
         rBullet.transform.position = new Vector3(transform.position.x, transform.position.y, -2);
 
-        //get the ally location
-        ally = god.GetClosest(transform.position);
+        if (ally == null) { print("ohho"); }
 
         //call the function in the bullet script
-        rBullet.GetComponent<Bullet_Script>().Target(ally.transform.position);
+        rBullet.GetComponent<Bullet_Script>().Target(allyLoc);
+
+        gameObject.transform.GetChild(1).GetChild(0).GetComponent<SpriteRenderer>().enabled = false;
     }
 
     void OnCollisionEnter2D(Collision2D col)
@@ -89,5 +92,20 @@ public class Enemy_Script : MonoBehaviour
         {
             rb.velocity = new Vector3(velocity.x / ratio, velocity.y / ratio, velocity.z / ratio);
         }
+    }
+
+    public void Telegraph()
+    {
+        //get the ally location
+        ally = god.GetClosest(transform.position);
+
+        allyLoc = ally.transform.position;
+
+        Vector3 dir = allyLoc - transform.position;
+
+        gameObject.transform.GetChild(1).GetChild(0).GetComponent<SpriteRenderer>().enabled = true;
+        gameObject.transform.GetChild(1).transform.rotation = Quaternion.Euler(0,0, Vector3.Dot(dir, new Vector3(1,0,0)));
+
+        dir = dir.normalized;
     }
 }
