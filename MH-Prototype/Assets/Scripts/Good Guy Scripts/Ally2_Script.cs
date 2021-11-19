@@ -8,6 +8,7 @@ public class Ally2_Script : MonoBehaviour
     public int health = 5;
     public int damage = 1;
     public bool on = false;
+    public bool pull = false;
 
     //variable for health bar
     public HealthBar_Script healthBar;
@@ -19,6 +20,8 @@ public class Ally2_Script : MonoBehaviour
     //things to fetch
     public Tracker_Script god;
     public GameObject enemy;
+    public GameObject pc;
+    public PC_Script pcScript;
 
 
     void Start()
@@ -26,6 +29,8 @@ public class Ally2_Script : MonoBehaviour
         //set the healthbar up
         healthBar.SetMaxHealth(health);
         god = GameObject.FindWithTag("GameController").GetComponent<Tracker_Script>();
+        pc = GameObject.FindWithTag("Player");
+        pcScript = pc.GetComponent<PC_Script>();
     }
 
     void Update()
@@ -40,6 +45,16 @@ public class Ally2_Script : MonoBehaviour
             Destroy(this.gameObject);
         }
 
+        if (pull == true)
+        {
+            if (pcScript.bound == true)
+            {
+                if(timer <= 4.5)
+                {
+                    ShootsFired();
+                }
+            }
+        }
     }
 
     private void OnCollisionEnter2D(Collision2D col)
@@ -79,6 +94,31 @@ public class Ally2_Script : MonoBehaviour
         rBullet.GetComponent<ABullet_Script>().Target(enemy.transform.position);
     }
 
-    public void Turnon() { gameObject.transform.GetChild(0).GetComponent<SpriteRenderer>().enabled = true; }
-    public void Turnoff() { gameObject.transform.GetChild(0).GetComponent<SpriteRenderer>().enabled = false; }
+    public void ShootsFired()
+    {
+        //reset the timer
+        timer = reset;
+
+        //create the new bullet
+        GameObject rBullet = (GameObject)Instantiate(Resources.Load("ABullet"));
+        rBullet.transform.position = new Vector3(transform.position.x, transform.position.y, -2);
+
+        Vector3 angle = transform.position - pc.transform.position;
+
+        //Vector3 dir = Vector3.Angle(new Vector3(0, 0, 0), angle);
+
+        //call the function in the bullet script
+        rBullet.GetComponent<ABullet_Script>().Target(angle);
+    }
+
+    public void Turnon() 
+    { 
+        gameObject.transform.GetChild(0).GetComponent<SpriteRenderer>().enabled = true;
+        pull = true;
+    }
+    public void Turnoff() 
+    { 
+        gameObject.transform.GetChild(0).GetComponent<SpriteRenderer>().enabled = false;
+        pull = false;
+    }
 }

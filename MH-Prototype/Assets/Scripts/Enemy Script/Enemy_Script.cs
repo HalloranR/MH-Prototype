@@ -39,7 +39,7 @@ public class Enemy_Script : MonoBehaviour
     {
         //timer for enemy to shoot
         timer -= Time.deltaTime;
-        if (timer <= 1.5) { Telegraph(); }
+        if (timer <= 1.5 && timer >= 1) { Telegraph(); }
         if (timer <= 0) { Shoot(); }
 
         //change velocity here
@@ -99,13 +99,18 @@ public class Enemy_Script : MonoBehaviour
         //get the ally location
         ally = god.GetClosest(transform.position);
 
-        allyLoc = ally.transform.position;
+        if(ally != null)
+        {
+            allyLoc = ally.transform.position;
 
-        Vector3 dir = allyLoc - transform.position;
+            //print(allyLoc);
 
-        gameObject.transform.GetChild(1).GetChild(0).GetComponent<SpriteRenderer>().enabled = true;
-        gameObject.transform.GetChild(1).transform.rotation = Quaternion.Euler(0,0, Vector3.Dot(dir, new Vector3(1,0,0)));
+            Vector3 dir = allyLoc - transform.position;
 
-        dir = dir.normalized;
+            gameObject.transform.GetChild(1).GetChild(0).GetComponent<SpriteRenderer>().enabled = true;
+            gameObject.transform.GetChild(1).transform.rotation = Quaternion.Euler(0, 0, Vector3.Angle(dir, new Vector3(1, 0, 0)));
+
+            dir = dir.normalized;
+        }
     }
 }

@@ -18,6 +18,7 @@ public class Tracker_Script : MonoBehaviour
 
     void Update()
     {
+        //bad practice
         enemies = GameObject.FindGameObjectsWithTag("Enemy");
         enemies2 = GameObject.FindGameObjectsWithTag("Enemy2");
         allies = GameObject.FindGameObjectsWithTag("Ally");
@@ -41,6 +42,7 @@ public class Tracker_Script : MonoBehaviour
 
         foreach(GameObject ally in allies)
         {
+            if(ally == null) { continue; }
             if (best == null) { best = ally; }
             else
             {
