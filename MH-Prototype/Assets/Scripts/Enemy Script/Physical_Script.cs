@@ -34,6 +34,7 @@ public class Physical_Script : MonoBehaviour
         //fetch vars
         pc = GameObject.FindWithTag("Player").GetComponent<PC_Script>();
         god = GameObject.FindWithTag("GameController").GetComponent<Tracker_Script>();
+        god.enemies2.Add(gameObject);
 
         //set up the timer
         timer = reset + Random.Range(-delay, delay);
@@ -47,6 +48,7 @@ public class Physical_Script : MonoBehaviour
         if (health <= 0) 
         {
             Instantiate(particle, transform.position, Quaternion.identity);
+            god.enemies2.Remove(gameObject);
             Destroy(gameObject); 
         }
 

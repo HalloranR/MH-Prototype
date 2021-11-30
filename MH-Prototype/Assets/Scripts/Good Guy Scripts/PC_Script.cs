@@ -8,6 +8,7 @@ public class PC_Script : MonoBehaviour
     //bools for help
     public bool bound = false;
     public bool bust = false;
+    public bool pulling = false;
     public bool a = false;
     public bool b = false;
 
@@ -75,7 +76,6 @@ public class PC_Script : MonoBehaviour
         if (!bound)
         {
             bound = true;
-
         }
         else if (bound)
         {
@@ -83,13 +83,17 @@ public class PC_Script : MonoBehaviour
             line.SetPosition(0, new Vector2(0, 0));
             line.SetPosition(1, new Vector2(0, 0));
             bound = false;
+            pulling = false;
             bust = false;
-            allyRB.velocity = new Vector2(0f, 0f);
+            //allyRB.velocity = new Vector2(0f, 0f);
         }
     }
 
     public void Pull()
     {
+        //actually pulling
+        pulling = true;
+
         //set up the line render
         line.SetPosition(0, transform.position);
         line.SetPosition(1, ally.transform.position);
@@ -122,22 +126,19 @@ public class PC_Script : MonoBehaviour
 
         if (hit)
         {
-            print("Here");
-
             Debug.DrawRay(transform.position, ally.transform.position - transform.position, Color.green);
 
             if(hit.collider.gameObject.tag == "Pillar")
             {
-                Vector3 endpos = transform.position;
+                Vector3 endpos = hit.transform.position;
                 line.SetPosition(0, transform.position);
-                line.SetPosition(1, transform.position);
+                line.SetPosition(1, endpos);
 
                 while (false) //endpos != hit.collider.gameObject.transform.position)
                 {
                     endpos = endpos + dir;
                     line.SetPosition(1, endpos);
                 }
-                line.SetPosition(1, transform.position);
                 return false;
             }
         }

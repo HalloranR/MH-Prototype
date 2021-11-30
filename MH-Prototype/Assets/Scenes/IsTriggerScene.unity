@@ -740,6 +740,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 91a7bf6821fd200468b8093e4c8980df, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  allies: []
+  enemies: []
+  enemies2: []
   gamewin: 3
 --- !u!4 &1207957853
 Transform:

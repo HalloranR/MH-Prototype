@@ -10,6 +10,7 @@ public class Ally_Script : MonoBehaviour
     public int damage = 1;
     public bool on = false;
     public GameObject particle;
+    public Tracker_Script god;
 
     //variable for health bar
     public HealthBar_Script healthBar;
@@ -18,6 +19,8 @@ public class Ally_Script : MonoBehaviour
     {
         //set the healthbar up
         healthBar.SetMaxHealth(health);
+        god = GameObject.FindWithTag("GameController").GetComponent<Tracker_Script>();
+        god.allies.Add(gameObject);
     }
 
     void Update()
@@ -25,6 +28,7 @@ public class Ally_Script : MonoBehaviour
         if (health <= 0) 
         {
             Instantiate(particle, transform.position, Quaternion.identity);
+            god.allies.Remove(gameObject);
             //destroy the object
             Destroy(gameObject);
         }
@@ -38,7 +42,7 @@ public class Ally_Script : MonoBehaviour
         //take damage if the object is a physical enemy and it is attacking
         if (col.gameObject.tag == "Enemy2")
         {
-            print("hit!");
+            //print("hit!");
             bool yes = col.gameObject.GetComponent<Physical_Script>().attack;
             //print(yes);
             if (yes) { Damage(); }
@@ -54,4 +58,17 @@ public class Ally_Script : MonoBehaviour
 
     public void Turnon() { gameObject.transform.GetChild(2).GetComponent<SpriteRenderer>().enabled = true; }
     public void Turnoff() { gameObject.transform.GetChild(2).GetComponent<SpriteRenderer>().enabled = false; }
+
+    void OnTriggerEnter2D(Collider2D col)
+    {
+        print("trigger");
+        if(col.gameObject.tag == "Enemy")
+        {
+            col.GetComponent<Enemy_Script>().Damage(10);
+        }
+        else if (col.gameObject.tag == "Enemy2")
+        {
+
+        }
+    }
 }

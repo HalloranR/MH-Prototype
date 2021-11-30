@@ -5,32 +5,24 @@ using UnityEngine.SceneManagement;
 
 public class Tracker_Script : MonoBehaviour
 {
-    GameObject[] allies;
-    GameObject[] enemies;
-    GameObject[] enemies2;
+    public List<GameObject> allies = new List<GameObject>();
+    public List<GameObject> enemies = new List<GameObject>();
+    public List<GameObject> enemies2 = new List<GameObject>();
 
     int gameover = 1;
     public int gamewin = 0;
-    void Awake()
-    {
-        allies = GameObject.FindGameObjectsWithTag("Ally");
-    }
 
     void Update()
-    {
-        //bad practice
-        enemies = GameObject.FindGameObjectsWithTag("Enemy");
-        enemies2 = GameObject.FindGameObjectsWithTag("Enemy2");
-        allies = GameObject.FindGameObjectsWithTag("Ally");
-        if (enemies.Length <= 0)
+    {        
+        if (enemies.Count <= 0)
         {
-            if (enemies2.Length <= 0)
+            if (enemies2.Count <= 0)
             {
                 SceneManager.LoadScene(gamewin);
             }
         }
 
-        if(allies.Length <= 0)
+        if(allies.Count <= 0)
         {
             SceneManager.LoadScene(gameover);
         }
@@ -61,7 +53,7 @@ public class Tracker_Script : MonoBehaviour
     {
         GameObject best = null;
 
-        if (enemies.Length > 0)
+        if (enemies.Count > 0)
         {
             foreach (GameObject enemy in enemies)
             {

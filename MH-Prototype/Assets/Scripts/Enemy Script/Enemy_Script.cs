@@ -30,6 +30,7 @@ public class Enemy_Script : MonoBehaviour
         rb = this.GetComponent<Rigidbody2D>();
         pc = GameObject.FindWithTag("Player").GetComponent<PC_Script>();
         god = GameObject.FindWithTag("GameController").GetComponent<Tracker_Script>();
+        god.enemies.Add(gameObject);
 
         //set up the timer
         timer = reset + Random.Range(-delay, delay);
@@ -52,6 +53,7 @@ public class Enemy_Script : MonoBehaviour
         if (health <= 0) 
         {
             Instantiate(particle, transform.position, Quaternion.identity);
+            god.enemies.Remove(gameObject);
             Destroy(gameObject); 
         }
     }
@@ -65,7 +67,7 @@ public class Enemy_Script : MonoBehaviour
         GameObject rBullet = (GameObject)Instantiate(Resources.Load("Bullet"));
         rBullet.transform.position = new Vector3(transform.position.x, transform.position.y, -2);
 
-        if (ally == null) { print("ohho"); }
+        //if (ally == null) { print("ohho"); }
 
         //call the function in the bullet script
         rBullet.GetComponent<Bullet_Script>().Target(allyLoc);
@@ -85,7 +87,7 @@ public class Enemy_Script : MonoBehaviour
             if (bound && col.gameObject == pc.GetComponent<PC_Script>().ally) { health -= lifeLoss; }
         }
         //for the projectile ally
-        if (col.gameObject.tag == "ABullet") { health -= lifeLoss; }
+        if (col.gameObject.tag == "ABullet") { health -= 4; }
     }
  
     public void CheckSpeed()
@@ -108,16 +110,32 @@ public class Enemy_Script : MonoBehaviour
         {
             allyLoc = ally.transform.position;
 
-            //print(allyLoc);
-
             Vector3 dir = allyLoc - transform.position;
 
-            print(dir);
+            if (transform.position.y > allyLoc.y)
+            {
+                gameObject.transform.GetChild(1).GetChild(0).GetComponent<SpriteRenderer>().enabled = true;
+                float value = 360 - Vector3.Angle(new Vector3(1, 0, 0), dir);
+                gameObject.transform.GetChild(1).transform.rotation = Quaternion.Euler(0, 0, value);
 
-            gameObject.transform.GetChild(1).GetChild(0).GetComponent<SpriteRenderer>().enabled = true;
-            gameObject.transform.GetChild(1).transform.rotation = Quaternion.Euler(0, 0, Vector3.Angle(new Vector3(1, 0, 0), dir));
-
+            }
+            else
+            {
+                gameObject.transform.GetChild(1).GetChild(0).GetComponent<SpriteRenderer>().enabled = true;
+                gameObject.transform.GetChild(1).transform.rotation = Quaternion.Euler(0, 0, Vector3.Angle(new Vector3(1, 0, 0), dir));
+            }
             dir = dir.normalized;
         }
+    }
+
+    public void Damage(int deal)
+    {
+        //take damage if the ally runs into the enemy and it is being pulled
+
+        //check to make sure the pc is pulling
+        bound = pc.bound;
+
+        //make sure the bound ally is dealing damage
+        if (bound) { health -= deal; }
     }
 }

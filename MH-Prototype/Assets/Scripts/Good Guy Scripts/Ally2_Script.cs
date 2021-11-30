@@ -32,6 +32,7 @@ public class Ally2_Script : MonoBehaviour
         god = GameObject.FindWithTag("GameController").GetComponent<Tracker_Script>();
         pc = GameObject.FindWithTag("Player");
         pcScript = pc.GetComponent<PC_Script>();
+        god.allies.Add(gameObject);
     }
 
     void Update()
@@ -43,18 +44,15 @@ public class Ally2_Script : MonoBehaviour
         if (health <= 0)
         {
             Instantiate(particle, transform.position, Quaternion.identity);
+            god.allies.Remove(gameObject);
             Destroy(this.gameObject);
         }
 
         if (pull == true)
         {
-            if (pcScript.bound == true)
+            if (pcScript.pulling == true && pcScript.ally == gameObject && pcScript.bust == false)
             {
-                //timer <= 4.7;
-                if (false)
-                {
-                    ShootsFired();
-                }
+                if (timer <= 4.7) { ShootsFired(); }
             }
         }
     }
@@ -68,7 +66,6 @@ public class Ally2_Script : MonoBehaviour
         if (col.gameObject.tag == "Enemy2")
         {
             bool yes = col.gameObject.GetComponent<Physical_Script>().attack;
-            print(yes);
             if (yes) { Damage(); }
         }
     }
@@ -100,6 +97,8 @@ public class Ally2_Script : MonoBehaviour
     {
         //reset the timer
         timer = reset;
+        Vector3 dir = transform.position - pc.transform.position;
+        gameObject.transform.GetChild(2).transform.rotation = Quaternion.Euler(0, 0, Vector3.Angle(new Vector3(0, 1, 0), dir));
 
         //create the new bullet
         for (int i = 0; i < 2; i++)
@@ -107,10 +106,13 @@ public class Ally2_Script : MonoBehaviour
             GameObject rBullet = (GameObject)Instantiate(Resources.Load("ABullet"));
             rBullet.transform.position = new Vector3(transform.position.x, transform.position.y, -2);
 
-            Vector3 angle = transform.position - pc.transform.position;
 
-            if (i == 0) { angle = new Vector3(angle.y, -angle.x, angle.z); }
-            if (i == 1) { angle = new Vector3(-angle.y, angle.x, angle.z); }
+            Vector3 angle = new Vector3(0,0,0);
+            
+            //get the right or left child of the rotation
+            if (i == 0) { angle = gameObject.transform.GetChild(2).GetChild(0).transform.position; }
+            if (i == 1) { angle = gameObject.transform.GetChild(2).GetChild(1).transform.position; }
+
 
             //call the function in the bullet script
             rBullet.GetComponent<ABullet_Script>().Target(angle);
