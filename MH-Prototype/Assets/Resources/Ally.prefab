@@ -231,6 +231,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   health: 5
   damage: 1
+  on: 0
+  particle: {fileID: 8053564929864861655, guid: c5340a5eec12ecb448d0efc5de3ed22e, type: 3}
   healthBar: {fileID: 0}
 --- !u!58 &4769527486075687165
 CircleCollider2D:

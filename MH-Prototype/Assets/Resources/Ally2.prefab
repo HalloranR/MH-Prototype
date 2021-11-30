@@ -139,11 +139,15 @@ MonoBehaviour:
   health: 5
   damage: 1
   on: 0
+  pull: 0
   healthBar: {fileID: 6825204456812350588}
   timer: 5
   reset: 5
   god: {fileID: 0}
   enemy: {fileID: 0}
+  pc: {fileID: 0}
+  pcScript: {fileID: 0}
+  particle: {fileID: 8053564929864861655, guid: c5340a5eec12ecb448d0efc5de3ed22e, type: 3}
 --- !u!1 &6361555201375667120
 GameObject:
   m_ObjectHideFlags: 0

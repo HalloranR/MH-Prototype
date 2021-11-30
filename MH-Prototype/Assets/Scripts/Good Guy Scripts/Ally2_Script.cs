@@ -22,6 +22,7 @@ public class Ally2_Script : MonoBehaviour
     public GameObject enemy;
     public GameObject pc;
     public PC_Script pcScript;
+    public GameObject particle;
 
 
     void Start()
@@ -41,7 +42,7 @@ public class Ally2_Script : MonoBehaviour
 
         if (health <= 0)
         {
-            //destroy the object
+            Instantiate(particle, transform.position, Quaternion.identity);
             Destroy(this.gameObject);
         }
 
@@ -49,7 +50,8 @@ public class Ally2_Script : MonoBehaviour
         {
             if (pcScript.bound == true)
             {
-                if(timer <= 4.5)
+                //timer <= 4.7;
+                if (false)
                 {
                     ShootsFired();
                 }
@@ -100,15 +102,19 @@ public class Ally2_Script : MonoBehaviour
         timer = reset;
 
         //create the new bullet
-        GameObject rBullet = (GameObject)Instantiate(Resources.Load("ABullet"));
-        rBullet.transform.position = new Vector3(transform.position.x, transform.position.y, -2);
+        for (int i = 0; i < 2; i++)
+        {
+            GameObject rBullet = (GameObject)Instantiate(Resources.Load("ABullet"));
+            rBullet.transform.position = new Vector3(transform.position.x, transform.position.y, -2);
 
-        Vector3 angle = transform.position - pc.transform.position;
+            Vector3 angle = transform.position - pc.transform.position;
 
-        //Vector3 dir = Vector3.Angle(new Vector3(0, 0, 0), angle);
+            if (i == 0) { angle = new Vector3(angle.y, -angle.x, angle.z); }
+            if (i == 1) { angle = new Vector3(-angle.y, angle.x, angle.z); }
 
-        //call the function in the bullet script
-        rBullet.GetComponent<ABullet_Script>().Target(angle);
+            //call the function in the bullet script
+            rBullet.GetComponent<ABullet_Script>().Target(angle);
+        }
     }
 
     public void Turnon() 

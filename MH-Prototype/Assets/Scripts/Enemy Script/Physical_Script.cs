@@ -20,6 +20,7 @@ public class Physical_Script : MonoBehaviour
     public float moveSpeed = 1f;
     public bool attack = false;
     public LineRenderer line;
+    public GameObject particle;
 
     //variables for attacking
     public float timer;
@@ -43,7 +44,11 @@ public class Physical_Script : MonoBehaviour
     void FixedUpdate()
     {
         //kill enemy here
-        if (health <= 0) { Destroy(gameObject); }
+        if (health <= 0) 
+        {
+            Instantiate(particle, transform.position, Quaternion.identity);
+            Destroy(gameObject); 
+        }
 
         //trigger the attack after time
         timer -= Time.deltaTime;

@@ -117,9 +117,11 @@ MonoBehaviour:
   pc: {fileID: 0}
   bound: 0
   ally: {fileID: 0}
+  god: {fileID: 0}
   moveSpeed: 17
   attack: 1
   line: {fileID: 0}
+  particle: {fileID: 8754129322863624819, guid: c5ab6ea5ce492b24cb44e32a4cc734c9, type: 3}
   timer: 0
   reset: 5
   delay: 2

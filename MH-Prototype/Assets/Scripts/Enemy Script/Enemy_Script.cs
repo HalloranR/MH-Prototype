@@ -10,6 +10,7 @@ public class Enemy_Script : MonoBehaviour
     public PC_Script pc;
     public Tracker_Script god;
     public bool bound;
+    public GameObject particle;
     
     //internal variables
     public int health = 10;
@@ -48,7 +49,11 @@ public class Enemy_Script : MonoBehaviour
         }
 
         //kill enemy here
-        if (health <= 0) { Destroy(gameObject); }
+        if (health <= 0) 
+        {
+            Instantiate(particle, transform.position, Quaternion.identity);
+            Destroy(gameObject); 
+        }
     }
 
     public void Shoot()
@@ -107,8 +112,10 @@ public class Enemy_Script : MonoBehaviour
 
             Vector3 dir = allyLoc - transform.position;
 
+            print(dir);
+
             gameObject.transform.GetChild(1).GetChild(0).GetComponent<SpriteRenderer>().enabled = true;
-            gameObject.transform.GetChild(1).transform.rotation = Quaternion.Euler(0, 0, Vector3.Angle(dir, new Vector3(1, 0, 0)));
+            gameObject.transform.GetChild(1).transform.rotation = Quaternion.Euler(0, 0, Vector3.Angle(new Vector3(1, 0, 0), dir));
 
             dir = dir.normalized;
         }
