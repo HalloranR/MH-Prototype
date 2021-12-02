@@ -11,7 +11,8 @@ public class Enemy_Script : MonoBehaviour
     public Tracker_Script god;
     public bool bound;
     public GameObject particle;
-    
+    public AudioSource source;
+
     //internal variables
     public int health = 10;
     public int lifeLoss = 4;
@@ -54,6 +55,7 @@ public class Enemy_Script : MonoBehaviour
         {
             Instantiate(particle, transform.position, Quaternion.identity);
             god.enemies.Remove(gameObject);
+            source.Play();
             Destroy(gameObject); 
         }
     }
@@ -105,6 +107,7 @@ public class Enemy_Script : MonoBehaviour
     {
         //get the ally location
         ally = god.GetClosest(transform.position);
+
 
         if(ally != null)
         {

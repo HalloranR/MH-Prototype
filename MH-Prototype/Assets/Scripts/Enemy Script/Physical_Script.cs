@@ -72,10 +72,15 @@ public class Physical_Script : MonoBehaviour
             bound = pc.bound;
 
             //make sure the bound ally is dealing damage
-            if (bound && col.gameObject == pc.GetComponent<PC_Script>().ally) { health -= lifeLoss; }
+            if (bound && col.gameObject == pc.GetComponent<PC_Script>().ally) { Damage(lifeLoss); }
         }
         //for the projectile ally
-        if (col.gameObject.tag == "ABullet") { health -= lifeLoss; }
+        if (col.gameObject.tag == "ABullet") { Damage(lifeLoss); }
+    }
+
+    public void Damage(int deal)
+    {
+        health -= deal;
     }
 
     public void Follow()

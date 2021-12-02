@@ -34,21 +34,6 @@ public class Ally_Script : MonoBehaviour
         }
     }
 
-    private void OnCollisionEnter2D(Collision2D col)
-    {
-        //take damage if the object is a bullet, change the health bar
-        if (col.gameObject.tag == "Bullet") { Damage(); }
-
-        //take damage if the object is a physical enemy and it is attacking
-        if (col.gameObject.tag == "Enemy2")
-        {
-            //print("hit!");
-            bool yes = col.gameObject.GetComponent<Physical_Script>().attack;
-            //print(yes);
-            if (yes) { Damage(); }
-        }
-    }
-
     public void Damage()
     {
         //function to handle damage
@@ -56,19 +41,29 @@ public class Ally_Script : MonoBehaviour
         healthBar.SetHealth(health);
     }
 
-    public void Turnon() { gameObject.transform.GetChild(2).GetComponent<SpriteRenderer>().enabled = true; }
-    public void Turnoff() { gameObject.transform.GetChild(2).GetComponent<SpriteRenderer>().enabled = false; }
+    public void Turnon() { gameObject.transform.GetChild(1).GetComponent<SpriteRenderer>().enabled = true; }
+    public void Turnoff() { gameObject.transform.GetChild(1).GetComponent<SpriteRenderer>().enabled = false; }
 
     void OnTriggerEnter2D(Collider2D col)
     {
-        print("trigger");
-        if(col.gameObject.tag == "Enemy")
+        if (col.gameObject.tag == "Enemy")
         {
             col.GetComponent<Enemy_Script>().Damage(10);
         }
+        else if (col.gameObject.tag == "Bullet") 
+        { 
+            Damage();
+            Destroy(col.gameObject);
+        }
         else if (col.gameObject.tag == "Enemy2")
         {
-
+            bool yes = col.gameObject.GetComponent<Physical_Script>().attack;
+            //print(yes);
+            if (yes) { Damage(); }
+            else
+            {
+                col.GetComponent<Physical_Script>().Damage(10);
+            }
         }
     }
 }

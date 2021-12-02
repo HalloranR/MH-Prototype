@@ -8,9 +8,15 @@ public class Tracker_Script : MonoBehaviour
     public List<GameObject> allies = new List<GameObject>();
     public List<GameObject> enemies = new List<GameObject>();
     public List<GameObject> enemies2 = new List<GameObject>();
+    public AudioSource source;
 
     int gameover = 1;
     public int gamewin = 0;
+
+    void Start()
+    {
+        source.Play();
+    }
 
     void Update()
     {        

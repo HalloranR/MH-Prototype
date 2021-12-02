@@ -11,6 +11,7 @@ public class PC_Script : MonoBehaviour
     public bool pulling = false;
     public bool a = false;
     public bool b = false;
+    public AudioSource source;
 
     //variables for speed
     [SerializeField] private float walkSpeed = 10f;
@@ -198,5 +199,5 @@ public class PC_Script : MonoBehaviour
                 b = true;
             }
         }
-    }
+    }    
 }
