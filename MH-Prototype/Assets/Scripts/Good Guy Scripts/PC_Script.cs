@@ -131,7 +131,7 @@ public class PC_Script : MonoBehaviour
 
             if(hit.collider.gameObject.tag == "Pillar")
             {
-                Vector3 endpos = hit.transform.position;
+                Vector3 endpos = hit.point;
                 line.SetPosition(0, transform.position);
                 line.SetPosition(1, endpos);
 

@@ -15,7 +15,7 @@ public class Tracker_Script : MonoBehaviour
 
     void Start()
     {
-        source.Play();
+        source = GetComponent<AudioSource>();
     }
 
     void Update()

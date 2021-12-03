@@ -122,6 +122,8 @@ MonoBehaviour:
   attack: 1
   line: {fileID: 0}
   particle: {fileID: 8754129322863624819, guid: c5ab6ea5ce492b24cb44e32a4cc734c9, type: 3}
+  flash: {r: 1, g: 1, b: 1, a: 1}
+  normal: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0}
   timer: 0
   reset: 5
   delay: 2

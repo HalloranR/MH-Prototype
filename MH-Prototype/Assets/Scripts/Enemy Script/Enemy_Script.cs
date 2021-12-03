@@ -11,13 +11,15 @@ public class Enemy_Script : MonoBehaviour
     public Tracker_Script god;
     public bool bound;
     public GameObject particle;
-    public AudioSource source;
 
     //internal variables
     public int health = 10;
     public int lifeLoss = 4;
     public float ratio = 1.1f;
-    
+    public Color flash = Color.white;
+    public Color normal;
+    private Renderer rend;
+
     //variables for shooting
     public float timer;
     public float reset = 5f;
@@ -32,6 +34,8 @@ public class Enemy_Script : MonoBehaviour
         pc = GameObject.FindWithTag("Player").GetComponent<PC_Script>();
         god = GameObject.FindWithTag("GameController").GetComponent<Tracker_Script>();
         god.enemies.Add(gameObject);
+
+        rend = GetComponent<Renderer>();
 
         //set up the timer
         timer = reset + Random.Range(-delay, delay);
@@ -53,9 +57,10 @@ public class Enemy_Script : MonoBehaviour
         //kill enemy here
         if (health <= 0) 
         {
+
             Instantiate(particle, transform.position, Quaternion.identity);
             god.enemies.Remove(gameObject);
-            source.Play();
+            god.source.Play(0);
             Destroy(gameObject); 
         }
     }
@@ -74,7 +79,7 @@ public class Enemy_Script : MonoBehaviour
         //call the function in the bullet script
         rBullet.GetComponent<Bullet_Script>().Target(allyLoc);
 
-        gameObject.transform.GetChild(1).GetChild(0).GetComponent<SpriteRenderer>().enabled = false;
+        gameObject.transform.GetChild(0).GetChild(0).GetComponent<SpriteRenderer>().enabled = false;
     }
 
     void OnCollisionEnter2D(Collision2D col)
@@ -117,15 +122,15 @@ public class Enemy_Script : MonoBehaviour
 
             if (transform.position.y > allyLoc.y)
             {
-                gameObject.transform.GetChild(1).GetChild(0).GetComponent<SpriteRenderer>().enabled = true;
+                gameObject.transform.GetChild(0).GetChild(0).GetComponent<SpriteRenderer>().enabled = true;
                 float value = 360 - Vector3.Angle(new Vector3(1, 0, 0), dir);
-                gameObject.transform.GetChild(1).transform.rotation = Quaternion.Euler(0, 0, value);
+                gameObject.transform.GetChild(0).transform.rotation = Quaternion.Euler(0, 0, value);
 
             }
             else
             {
-                gameObject.transform.GetChild(1).GetChild(0).GetComponent<SpriteRenderer>().enabled = true;
-                gameObject.transform.GetChild(1).transform.rotation = Quaternion.Euler(0, 0, Vector3.Angle(new Vector3(1, 0, 0), dir));
+                gameObject.transform.GetChild(0).GetChild(0).GetComponent<SpriteRenderer>().enabled = true;
+                gameObject.transform.GetChild(0).transform.rotation = Quaternion.Euler(0, 0, Vector3.Angle(new Vector3(1, 0, 0), dir));
             }
             dir = dir.normalized;
         }
@@ -139,6 +144,10 @@ public class Enemy_Script : MonoBehaviour
         bound = pc.bound;
 
         //make sure the bound ally is dealing damage
-        if (bound) { health -= deal; }
+        if (bound) 
+        { 
+            health -= deal;
+            rend.material.color = flash;
+        }
     }
 }

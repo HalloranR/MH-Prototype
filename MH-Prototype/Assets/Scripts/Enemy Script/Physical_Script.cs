@@ -21,6 +21,9 @@ public class Physical_Script : MonoBehaviour
     public bool attack = false;
     public LineRenderer line;
     public GameObject particle;
+    public Color flash = Color.white;
+    public Color normal;
+    private Renderer rend;
 
     //variables for attacking
     public float timer;
@@ -36,6 +39,8 @@ public class Physical_Script : MonoBehaviour
         god = GameObject.FindWithTag("GameController").GetComponent<Tracker_Script>();
         god.enemies2.Add(gameObject);
 
+        rend = GetComponent<Renderer>();
+
         //set up the timer
         timer = reset + Random.Range(-delay, delay);
         reset = timer;
@@ -49,6 +54,7 @@ public class Physical_Script : MonoBehaviour
         {
             Instantiate(particle, transform.position, Quaternion.identity);
             god.enemies2.Remove(gameObject);
+            god.source.Play();
             Destroy(gameObject); 
         }
 
@@ -81,6 +87,11 @@ public class Physical_Script : MonoBehaviour
     public void Damage(int deal)
     {
         health -= deal;
+        for(int i = 0; i < 6; i++)
+        {
+            if(i%2 == 0) { rend.material.color = flash; }
+            else if (i%2 == 1) { rend.material.color = normal; }
+        }
     }
 
     public void Follow()
