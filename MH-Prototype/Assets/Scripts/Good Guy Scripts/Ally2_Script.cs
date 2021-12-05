@@ -123,16 +123,20 @@ public class Ally2_Script : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D col)
     {
-        if (col.gameObject.tag == "Bullet") 
+        if (col.gameObject.tag == "Bullet")
         {
             Destroy(col.gameObject);
-            Damage(); 
+            Damage();
         }
         else if (col.gameObject.tag == "Enemy2")
         {
             bool yes = col.gameObject.GetComponent<Physical_Script>().attack;
             //print(yes);
             if (yes) { Damage(); }
+        }
+        else if (col.gameObject.tag == "Blast")
+        {
+            Damage();
         }
     }
 }

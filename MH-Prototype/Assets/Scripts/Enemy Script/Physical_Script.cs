@@ -6,7 +6,7 @@ using DG.Tweening;
 public class Physical_Script : MonoBehaviour
 {
     //Life vars
-    public int health = 10;
+    public int health = 20;
     public int lifeLoss = 10;
 
     //ally variables
@@ -140,5 +140,10 @@ public class Physical_Script : MonoBehaviour
             else if (i % 2 == 1) { rend.material.color = normal; }
             yield return new WaitForSeconds(0.1f);
         }
+    }
+
+    public void BlowUp()
+    {
+        health -= health;
     }
 }

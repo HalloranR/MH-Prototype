@@ -161,4 +161,9 @@ public class Enemy_Script : MonoBehaviour
             yield return new WaitForSeconds(0.1f);
         }
     }
+
+    public void BlowUp()
+    {
+        health -= health;
+    }
 }

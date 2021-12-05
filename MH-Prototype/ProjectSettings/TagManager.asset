@@ -12,6 +12,7 @@ TagManager:
   - Pillar
   - Enemy2
   - ABullet
+  - Blast
   layers:
   - Default
   - TransparentFX

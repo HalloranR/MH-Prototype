@@ -65,5 +65,9 @@ public class Ally_Script : MonoBehaviour
                 col.GetComponent<Physical_Script>().Damage(10);
             }
         }
+        else if (col.gameObject.tag == "Blast")
+        {
+            Damage();
+        }
     }
 }
