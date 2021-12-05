@@ -19,6 +19,7 @@ public class Enemy_Script : MonoBehaviour
     public Color flash = Color.white;
     public Color normal;
     private Renderer rend;
+    public float waitTime = 0.1f;
 
     //variables for shooting
     public float timer;
@@ -147,7 +148,26 @@ public class Enemy_Script : MonoBehaviour
         if (bound) 
         { 
             health -= deal;
-            rend.material.color = flash;
+            Flicker();
+        }
+    }
+
+    public void Flicker()
+    {
+        for (int i = 0; i <= 4; i++)
+        {
+            print("number");
+            if (i % 2 == 0) { rend.material.color = flash; }
+            else if (i % 2 == 1) { rend.material.color = normal; }
+
+            float counter = 0;
+
+            while (counter < waitTime)
+            {
+                print("waiting");
+                //Increment Timer until counter >= waitTime
+                counter += Time.deltaTime;
+            }
         }
     }
 }

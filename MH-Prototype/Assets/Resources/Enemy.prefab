@@ -129,6 +129,9 @@ MonoBehaviour:
   health: 20
   lifeLoss: 10
   ratio: 1.1
+  flash: {r: 1, g: 1, b: 1, a: 1}
+  normal: {r: 0, g: 0, b: 0, a: 0}
+  waitTime: 0.1
   timer: 5
   reset: 5
   delay: 2
