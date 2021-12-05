@@ -87,11 +87,7 @@ public class Physical_Script : MonoBehaviour
     public void Damage(int deal)
     {
         health -= deal;
-        for(int i = 0; i < 6; i++)
-        {
-            if(i%2 == 0) { rend.material.color = flash; }
-            else if (i%2 == 1) { rend.material.color = normal; }
-        }
+        StartCoroutine(Flicker());
     }
 
     public void Follow()
@@ -134,5 +130,15 @@ public class Physical_Script : MonoBehaviour
         }
 
         return true;
+    }
+
+    IEnumerator Flicker()
+    {
+        for (int i = 0; i <= 4; i++)
+        {
+            if (i % 2 == 0) { rend.material.color = flash; }
+            else if (i % 2 == 1) { rend.material.color = normal; }
+            yield return new WaitForSeconds(0.1f);
+        }
     }
 }

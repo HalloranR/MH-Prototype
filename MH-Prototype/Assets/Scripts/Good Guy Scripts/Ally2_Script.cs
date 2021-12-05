@@ -9,6 +9,7 @@ public class Ally2_Script : MonoBehaviour
     public int damage = 1;
     public bool on = false;
     public bool pull = false;
+    public AudioSource source;
 
     //variable for health bar
     public HealthBar_Script healthBar;
@@ -27,6 +28,7 @@ public class Ally2_Script : MonoBehaviour
 
     void Start()
     {
+        source = GetComponent<AudioSource>();
         //set the healthbar up
         healthBar.SetMaxHealth(health);
         god = GameObject.FindWithTag("GameController").GetComponent<Tracker_Script>();
@@ -68,6 +70,8 @@ public class Ally2_Script : MonoBehaviour
     {
         //reset the timer
         timer = reset;
+
+        source.Play(0);
 
         //create the new bullet
         GameObject rBullet = (GameObject)Instantiate(Resources.Load("ABullet"));

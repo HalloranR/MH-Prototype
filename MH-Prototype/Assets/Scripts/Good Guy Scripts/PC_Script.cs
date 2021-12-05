@@ -39,6 +39,8 @@ public class PC_Script : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         allyRB1 = ally1.GetComponent<Rigidbody2D>();
         allyRB2 = ally2.GetComponent<Rigidbody2D>();
+
+        source = GetComponent<AudioSource>();
     }
 
     private void OnEnable()
@@ -77,6 +79,7 @@ public class PC_Script : MonoBehaviour
         if (!bound)
         {
             bound = true;
+            source.Play(0);
         }
         else if (bound)
         {

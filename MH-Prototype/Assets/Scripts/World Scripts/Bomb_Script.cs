@@ -10,16 +10,8 @@ public class Bomb_Script : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D col)
     {
-        if(col.gameObject.tag == "ally")
-        {
-            print("blow");
-            Blow();
-        }
-    }
-
-    private void OnCollisionEnter2D(Collision2D col)
-    {
-        if (col.gameObject.tag == "ally")
+        //print(col);
+        if(col.gameObject.tag == "Ally")
         {
             print("blow");
             Blow();

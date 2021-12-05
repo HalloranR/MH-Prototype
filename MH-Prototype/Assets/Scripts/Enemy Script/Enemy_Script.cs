@@ -148,26 +148,17 @@ public class Enemy_Script : MonoBehaviour
         if (bound) 
         { 
             health -= deal;
-            Flicker();
+            StartCoroutine (Flicker());
         }
     }
 
-    public void Flicker()
+    IEnumerator Flicker()
     {
         for (int i = 0; i <= 4; i++)
         {
-            print("number");
             if (i % 2 == 0) { rend.material.color = flash; }
             else if (i % 2 == 1) { rend.material.color = normal; }
-
-            float counter = 0;
-
-            while (counter < waitTime)
-            {
-                print("waiting");
-                //Increment Timer until counter >= waitTime
-                counter += Time.deltaTime;
-            }
+            yield return new WaitForSeconds(0.1f);
         }
     }
 }

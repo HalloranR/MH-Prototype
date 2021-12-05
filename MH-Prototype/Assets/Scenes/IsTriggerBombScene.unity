@@ -1586,6 +1586,10 @@ PrefabInstance:
       propertyPath: waitTime
       value: 0.2
       objectReference: {fileID: 0}
+    - target: {fileID: 3900581425521917657, guid: 99dd7fc3a031d9046a41385fd3c1df34, type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4821919736201619560, guid: 99dd7fc3a031d9046a41385fd3c1df34, type: 3}
       propertyPath: m_RootOrder
       value: 17
