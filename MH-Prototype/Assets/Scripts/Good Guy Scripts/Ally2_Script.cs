@@ -15,8 +15,8 @@ public class Ally2_Script : MonoBehaviour
     public HealthBar_Script healthBar;
 
     //variables for shooting
-    public float timer = 5f;
-    public float reset = 5f;
+    public float timer = 3f;
+    public float reset = 3f;
 
     //things to fetch
     public Tracker_Script god;
@@ -54,7 +54,7 @@ public class Ally2_Script : MonoBehaviour
         {
             if (pcScript.pulling == true && pcScript.ally == gameObject && pcScript.bust == false)
             {
-                if (timer <= 4.9) { ShootsFired(); }
+                if (timer <= reset-0.1) { ShootsFired(); }
             }
         }
     }

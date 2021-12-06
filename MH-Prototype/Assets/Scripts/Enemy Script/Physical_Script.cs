@@ -63,7 +63,6 @@ public class Physical_Script : MonoBehaviour
         if (timer <= 0) 
         {
             //get the ally location
-            ally = god.GetClosest(transform.position);
             Follow();
             timer = reset;
         }
@@ -92,13 +91,14 @@ public class Physical_Script : MonoBehaviour
 
     public void Follow()
     {
-        //set bool to true so it stops damage
-        attack = true;
+        ally = god.GetClosest(transform.position);
 
         Vector3 dir = ally.transform.position - transform.position;
 
         if (CheckDir(dir))
         {
+            attack = true;
+
             dir = dir.normalized * length;
 
             //keep old z axis
@@ -107,11 +107,7 @@ public class Physical_Script : MonoBehaviour
 
             transform.DOMove(transform.position + dir, 1).OnComplete(MyCallback);
         }
-        else
-        {
-            print("change here");
-            attack = false;
-        }
+        else { timer = 1; }
     }
     public void MyCallback() { if (attack == true) { attack = false; } }
 
@@ -123,9 +119,9 @@ public class Physical_Script : MonoBehaviour
 
         if (hit)
         {
-            if (hit.collider.gameObject.tag == "Pillar")
+            if (hit.collider.gameObject.tag == "Pillar" || hit.collider.gameObject.tag == "Boarder")
             {
-                //return false;
+                return false;
             }
         }
 
