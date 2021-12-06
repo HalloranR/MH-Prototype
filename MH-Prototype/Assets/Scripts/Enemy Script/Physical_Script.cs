@@ -60,6 +60,7 @@ public class Physical_Script : MonoBehaviour
 
         //trigger the attack after time
         timer -= Time.deltaTime;
+        if(timer <= 1.5 && timer > 0.75) { Telegraph(); }
         if (timer <= 0) 
         {
             //get the ally location
@@ -91,8 +92,6 @@ public class Physical_Script : MonoBehaviour
 
     public void Follow()
     {
-        ally = god.GetClosest(transform.position);
-
         Vector3 dir = ally.transform.position - transform.position;
 
         if (CheckDir(dir))
@@ -105,6 +104,7 @@ public class Physical_Script : MonoBehaviour
             dir = new Vector3(dir.x, dir.y, 0);
             //print(dir);
 
+            gameObject.transform.GetChild(0).GetChild(0).GetComponent<SpriteRenderer>().enabled = false;
             transform.DOMove(transform.position + dir, 1).OnComplete(MyCallback);
         }
         else { timer = 1; }
@@ -141,5 +141,37 @@ public class Physical_Script : MonoBehaviour
     public void BlowUp()
     {
         health -= health;
+    }
+
+    public void Telegraph()
+    {
+        //get the ally location
+        ally = god.GetClosest(transform.position);
+
+
+        if (ally != null)
+        {
+            Vector3 allyLoc = ally.transform.position;
+
+            Vector3 dir = allyLoc - transform.position;
+
+            //print(dir);
+            //print(Vector3.Angle(new Vector3(1, 0, 0), dir));
+
+            if (transform.position.y > allyLoc.y)
+            {
+                //print("yes");
+                gameObject.transform.GetChild(0).GetChild(0).GetComponent<SpriteRenderer>().enabled = true;
+                float value = 360 - Vector3.Angle(new Vector3(1, 0, 0), dir);
+                gameObject.transform.GetChild(0).transform.rotation = Quaternion.Euler(0, 0, value);
+
+            }
+            else
+            {
+                //print("yee");
+                gameObject.transform.GetChild(0).GetChild(0).GetComponent<SpriteRenderer>().enabled = true;
+                gameObject.transform.GetChild(0).transform.rotation = Quaternion.Euler(0, 0, Vector3.Angle(new Vector3(1, 0, 0), dir));
+            }
+        }
     }
 }

@@ -10,7 +10,7 @@ public class Tracker_Script : MonoBehaviour
     public List<GameObject> enemies2 = new List<GameObject>();
     public AudioSource source;
 
-    int gameover = 1;
+    int gameover = 4;
     public int gamewin = 0;
 
     void Start()

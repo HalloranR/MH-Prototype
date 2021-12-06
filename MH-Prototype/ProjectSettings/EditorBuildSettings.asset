@@ -5,22 +5,19 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 0
-    path: 
-    guid: 00000000000000000000000000000000
   - enabled: 1
-    path: Assets/Scenes/Old Scenes/Riley's Scene.unity
-    guid: 4951b109cde456a47902b93b05eab5c2
+    path: Assets/Scenes/IsTriggerScene.unity
+    guid: 1385b26917793404aa54d545399defce
   - enabled: 1
-    path: Assets/Scenes/Game End/GameOver Scene.unity
-    guid: e7d4de90c48cc1744b6a7abd05f8ac64
+    path: Assets/Scenes/IsTrigger3.unity
+    guid: 5bb1a62bb4a0dd64caacfe7cb43e91ff
+  - enabled: 1
+    path: Assets/Scenes/IsTrigger2Scene.unity
+    guid: 81e254adc0bb55043a62e8756f1716f8
   - enabled: 1
     path: Assets/Scenes/Game End/GameWon_Scene.unity
     guid: 735b0c11e6fddac459117f9d27553e1e
   - enabled: 1
-    path: Assets/Scenes/Old Scenes/NewMain Scene.unity
-    guid: 7c95e374fea5f004da34552f924a3066
-  - enabled: 1
-    path: Assets/Scenes/IsTrigger2Scene.unity
-    guid: 81e254adc0bb55043a62e8756f1716f8
+    path: Assets/Scenes/Game End/GameOver Scene.unity
+    guid: e7d4de90c48cc1744b6a7abd05f8ac64
   m_configObjects: {}

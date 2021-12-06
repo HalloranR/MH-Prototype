@@ -54,7 +54,7 @@ public class Ally2_Script : MonoBehaviour
         {
             if (pcScript.pulling == true && pcScript.ally == gameObject && pcScript.bust == false)
             {
-                if (timer <= reset-0.1) { ShootsFired(); }
+                if (timer <= reset-0.15) { ShootsFired(); }
             }
         }
     }
