@@ -21,6 +21,7 @@ public class PC_Script : MonoBehaviour
     private PlayerInputActions playerInput;
     private Rigidbody2D rb;
     public LineRenderer line;
+    public LineRenderer line2;
 
     //manage allies here
     public GameObject ally;
@@ -67,9 +68,13 @@ public class PC_Script : MonoBehaviour
         rb.velocity = moveInput * walkSpeed;
 
         //pull the ally if true
-        if (bound == true && bust == false && ally != null) 
+        if (bound == true && bust == false && a) 
         {
-            if (FireLaser()) { Pull(); } 
+            if (FireLaser(ally1)) { Pull(ally1, allyRB1); } 
+        }
+        if (bound == true && bust == false && b)
+        {
+            if (FireLaser(ally2)) { Pull(ally2, allyRB2); }
         }
     }
 
@@ -93,7 +98,24 @@ public class PC_Script : MonoBehaviour
         }
     }
 
-    public void Pull()
+    public void Pull(GameObject pullally, Rigidbody2D rb)
+    {
+        //actually pulling
+        pulling = true;
+
+        //set up the line render
+        line.SetPosition(0, transform.position);
+        line.SetPosition(1, pullally.transform.position);
+
+        //pull the ally in steps using the difference and the pullspeed
+        float step = pullSpeed * Time.deltaTime;
+        Vector2 difference = (Vector2)transform.position - (Vector2)pullally.transform.position;
+
+        //move the ally
+        rb.MovePosition((Vector2)pullally.transform.position + difference * step);
+    }
+
+    public void Pull2()
     {
         //actually pulling
         pulling = true;
@@ -120,7 +142,38 @@ public class PC_Script : MonoBehaviour
         }
     }
 
-    public bool FireLaser()
+
+    public bool FireLaser(GameObject lookally)
+    {
+        Vector3 dir = lookally.transform.position - transform.position;
+        
+        int mask = 1 << LayerMask.NameToLayer("Pillar");
+
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, dir, dir.magnitude, mask);
+
+        if (hit)
+        {
+            Debug.DrawRay(transform.position, lookally.transform.position - transform.position, Color.green);
+
+            if(hit.collider.gameObject.tag == "Pillar")
+            {
+                Vector3 endpos = hit.point;
+                line.SetPosition(0, transform.position);
+                line.SetPosition(1, endpos);
+
+                while (false) //endpos != hit.collider.gameObject.transform.position)
+                {
+                    endpos = endpos + dir;
+                    line.SetPosition(1, endpos);
+                }
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    public bool FireLaser2()
     {
         Vector3 dir = ally.transform.position - transform.position;
 
@@ -132,7 +185,7 @@ public class PC_Script : MonoBehaviour
         {
             Debug.DrawRay(transform.position, ally.transform.position - transform.position, Color.green);
 
-            if(hit.collider.gameObject.tag == "Pillar")
+            if (hit.collider.gameObject.tag == "Pillar")
             {
                 Vector3 endpos = hit.point;
                 line.SetPosition(0, transform.position);
@@ -202,5 +255,5 @@ public class PC_Script : MonoBehaviour
                 b = true;
             }
         }
-    }    
+    }
 }
